@@ -11,7 +11,7 @@ class AvatarItemsController {
 
 class AvatarItemsSetsController {
   static getAll = async (_: express.Request, response: express.Response) => {
-    const { data, status } = await instance.get("/items/avatarItems");
+    const { data, status } = await instance.get("/items/avatarItemSets");
     console.log(data);
     response.status(status).json(data);
   };
