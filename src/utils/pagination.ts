@@ -29,6 +29,6 @@ export default function paginate(
     totalCount: originalData.length,
     currentPage: pageCeiled,
     numberOfPages,
-    data: paginatedData,
+    items: paginatedData,
   };
 }
