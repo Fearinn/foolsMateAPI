@@ -8,7 +8,7 @@ class AvatarItemsController {
     response: express.Response
   ) => {
     try {
-      const { data, status } = await instance.get("/items/roleIcons");
+      const { data, status } = await instance.get("/items/avatarItems");
       if (!Array.isArray(data)) {
         throw new Error("Type of response data don't match the expected type");
       }
@@ -32,7 +32,7 @@ class AvatarItemsSetsController {
     response: express.Response
   ) => {
     try {
-      const { data, status } = await instance.get("/items/roleIcons");
+      const { data, status } = await instance.get("/items/avatarItemSets");
       if (!Array.isArray(data)) {
         throw new Error("Type of response data don't match the expected type");
       }
