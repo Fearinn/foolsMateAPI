@@ -5,12 +5,21 @@ export default function paginate(
   page?: unknown,
   itemsPerPage?: unknown
 ) {
-  const pageCeiled = convertAndCeil(page) || 1;
-  const itemsPerPageCeiled = convertAndCeil(itemsPerPage) || 20;
+  const itemsPerPageCeiled =
+    convertAndCeil(itemsPerPage) || originalData.length;
+
   const numberOfPages = convertAndCeil(
     originalData.length / itemsPerPageCeiled
   );
-  const paginatedData = originalData.slice(
+
+  const pageCeiled =
+    (convertAndCeil(page) || 1) > numberOfPages
+      ? numberOfPages
+      : convertAndCeil(page) || 1;
+
+  let paginatedData: unknown[] = [];
+
+  paginatedData = originalData.slice(
     itemsPerPageCeiled * (pageCeiled - 1),
     itemsPerPageCeiled * pageCeiled
   );
