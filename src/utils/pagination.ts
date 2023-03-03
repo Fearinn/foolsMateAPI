@@ -1,4 +1,4 @@
-import convertAndCeil from "./convertAndCeil";
+import convertAndCeil from "./convertAndCeil.js";
 
 export default function paginate(
   originalData: unknown[],
