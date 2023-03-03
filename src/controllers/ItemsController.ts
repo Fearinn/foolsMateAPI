@@ -7,16 +7,22 @@ class AvatarItemsController {
     request: express.Request,
     response: express.Response
   ) => {
-    const { data, status } = await instance.get("/items/avatarItems");
+    try {
+      const { data, status } = await instance.get("/items/roleIcons");
+      if (!Array.isArray(data)) {
+        throw new Error("Type of response data don't match the expected type");
+      }
+      const limit = request.query.limit;
+      const page = request.query.page;
+      const dataPage = pagination(data, page, limit);
 
-    if (!Array.isArray(data)) {
-      throw new Error("Type of response data don't match the expected type");
+      response.status(status).json(dataPage);
+    } catch (error) {
+      console.log(error);
+      response
+        .status(501)
+        .send("An unexpected error occurred! Please try again later");
     }
-    const limit = request.query.limit;
-    const page = request.query.page;
-    const dataPage = pagination(data, page, limit);
-
-    response.status(status).json(dataPage);
   };
 }
 
@@ -25,15 +31,22 @@ class AvatarItemsSetsController {
     request: express.Request,
     response: express.Response
   ) => {
-    const { data, status } = await instance.get("/items/avatarItemSets");
-    if (!Array.isArray(data)) {
-      throw new Error("Type of response data don't match the expected type");
-    }
-    const limit = request.query.limit;
-    const page = request.query.page;
-    const dataPage = pagination(data, page, limit);
+    try {
+      const { data, status } = await instance.get("/items/roleIcons");
+      if (!Array.isArray(data)) {
+        throw new Error("Type of response data don't match the expected type");
+      }
+      const limit = request.query.limit;
+      const page = request.query.page;
+      const dataPage = pagination(data, page, limit);
 
-    response.status(status).json(dataPage);
+      response.status(status).json(dataPage);
+    } catch (error) {
+      console.log(error);
+      response
+        .status(501)
+        .send("An unexpected error occurred! Please try again later");
+    }
   };
 }
 
@@ -42,15 +55,22 @@ class RoleIconsController {
     request: express.Request,
     response: express.Response
   ) => {
-    const { data, status } = await instance.get("/items/roleIcons");
-    if (!Array.isArray(data)) {
-      throw new Error("Type of response data don't match the expected type");
-    }
-    const limit = request.query.limit;
-    const page = request.query.page;
-    const dataPage = pagination(data, page, limit);
+    try {
+      const { data, status } = await instance.get("/items/roleIcons");
+      if (!Array.isArray(data)) {
+        throw new Error("Type of response data don't match the expected type");
+      }
+      const limit = request.query.limit;
+      const page = request.query.page;
+      const dataPage = pagination(data, page, limit);
 
-    response.status(status).json(dataPage);
+      response.status(status).json(dataPage);
+    } catch (error) {
+      console.log(error);
+      response
+        .status(501)
+        .send("An unexpected error occurred! Please try again later");
+    }
   };
 }
 
