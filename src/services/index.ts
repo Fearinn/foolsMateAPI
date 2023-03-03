@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 
 const instance = axios.create({
   baseURL: "https://api.wolvesville.com/",
+  timeout: 30000,
 });
 
 instance.interceptors.request.use(
