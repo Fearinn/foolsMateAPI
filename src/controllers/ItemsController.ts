@@ -1,8 +1,13 @@
 import instance from "../services/index.js";
 import express from "express";
 import pagination from "../utils/pagination.js";
-import { convertIntoAvatarItemsList } from "../utils/isAvatarItems.js";
-import avatarItemsFilter from "../utils/avatarItemsFilter.js";
+import {
+  convertIntoAvatarItemsList,
+  isAvatarItemGender,
+  isAvatarItemKind,
+  isAvatarItemRarity,
+} from "../utils/isAvatarItems.js";
+import dataFilter from "../utils/dataFilter.js";
 import IAvatarItem from "../types/AvatarItem.js";
 
 class AvatarItemsController {
@@ -19,12 +24,31 @@ class AvatarItemsController {
 
       const limit = request.query.limit;
       const page = request.query.page;
-      const reqBody: IAvatarItem = request.body
+      const gender = request.query.gender;
+      const costInGold = request.query.gold;
+      const constInRoses = request.query.gold;
+      const rarity = request.query.rarity;
+      const type = request.query.type;
+      const event = request.query.event;
+
+      const filterBody = {
+        gender: isAvatarItemGender(gender) ? gender : undefined,
+        costInGold: Number(costInGold) || undefined,
+        constInRoses: Number(constInRoses) || undefined,
+        type: isAvatarItemKind(type) ? type : undefined,
+        rarity: isAvatarItemRarity(rarity) ? rarity : undefined,
+        event: typeof event === "string" ? event : undefined,
+      };
 
       const safeData = convertIntoAvatarItemsList(data);
-      const filteredData = avatarItemsFilter(safeData, reqBody);
+      const filteredData = dataFilter<IAvatarItem>(safeData, filterBody);
 
-      const dataPage = pagination<IAvatarItem>(filteredData, safeData, page, limit);
+      const dataPage = pagination<IAvatarItem>(
+        filteredData,
+        safeData,
+        page,
+        limit
+      );
 
       response.status(status).json(dataPage);
     } catch (error) {
