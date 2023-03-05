@@ -25,7 +25,7 @@ export default function paginate<T = unknown>(
 
   return {
     count: paginatedData.length,
-    totalCount: originalData.length,
+    totalCount: filteredData.length,
     currentPage: pageCeiled,
     numberOfPages,
     items: paginatedData,
