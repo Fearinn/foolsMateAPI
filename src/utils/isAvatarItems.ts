@@ -1,7 +1,11 @@
-import IAvatarItem from "../types/AvatarItem";
+import IAvatarItem, { IAvatarItemGender } from "../types/AvatarItem";
 
 function isAvatarItem(item: unknown): item is IAvatarItem {
   return !!(item as IAvatarItem).rarity && !!(item as IAvatarItem).type;
+}
+
+function isAvatarItemGender (gender: unknown): gender is IAvatarItemGender {
+  return gender === "FEMALE" || gender === "MALE" || gender === ""
 }
 
 function convertIntoAvatarItemsList(list: unknown[]): IAvatarItem[] {
@@ -10,4 +14,4 @@ function convertIntoAvatarItemsList(list: unknown[]): IAvatarItem[] {
   );
   return avatarItemsList;
 }
-export { convertIntoAvatarItemsList, isAvatarItem };
+export { convertIntoAvatarItemsList, isAvatarItem, isAvatarItemGender };
