@@ -19,12 +19,12 @@ class AvatarItemsController {
 
       const limit = request.query.limit;
       const page = request.query.page;
-      // const reqBody: IAvatarItem = request.body
+      const reqBody: IAvatarItem = request.body
 
       const safeData = convertIntoAvatarItemsList(data);
-      // const filteredData = avatarItemsFilter(safeData, reqBody);
+      const filteredData = avatarItemsFilter(safeData, reqBody);
 
-      const dataPage = pagination<IAvatarItem>(safeData, safeData, page, limit);
+      const dataPage = pagination<IAvatarItem>(filteredData, safeData, page, limit);
 
       response.status(status).json(dataPage);
     } catch (error) {
