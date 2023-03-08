@@ -2,7 +2,6 @@ import express from "express";
 import routes from "./routes/index.js";
 import cors from "cors"
 import * as dotenv from "dotenv"
-import "@total-typescript/ts-reset"
 
 dotenv.config()
 
