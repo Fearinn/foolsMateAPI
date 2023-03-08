@@ -37,7 +37,7 @@ class AvatarItemsController {
         constInRoses: Number(constInRoses) || undefined,
         type: isAvatarItemKind(type) ? type : undefined,
         rarity: isAvatarItemRarity(rarity) ? rarity : undefined,
-        event: typeof event === "string" ? event : undefined,
+        event: typeof event === "string" ? new RegExp(event, "i") : undefined,
       };
 
       const safeData = convertIntoAvatarItemsList(data);
