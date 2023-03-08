@@ -6,7 +6,7 @@ type IAvatarItem = {
   imageUrl: "string";
   type: IAvatarItemKind;
   gender?: IAvatarItemGender;
-  event?: string;
+  event?: RegExp | string;
 };
 
 type IAvatarRarity = "COMMON" | "RARE" | "EPIC" | "LEGENDARY";
