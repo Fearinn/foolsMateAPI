@@ -4,8 +4,8 @@ import pagination from "../utils/pagination.js";
 import {
   convertIntoAvatarItemsList,
   isAvatarItemGender,
-  isAvatarItemKind,
   isAvatarItemRarity,
+  isAvatarItemType,
 } from "../utils/isAvatarItems.js";
 import dataFilter from "../utils/dataFilter.js";
 import IAvatarItem from "../types/AvatarItem.js";
@@ -35,7 +35,7 @@ class AvatarItemsController {
         gender: isAvatarItemGender(gender) ? gender : undefined,
         costInGold: Number(costInGold) || undefined,
         constInRoses: Number(constInRoses) || undefined,
-        type: isAvatarItemKind(type) ? type : undefined,
+        type: isAvatarItemType(type) ? type : undefined,
         rarity: isAvatarItemRarity(rarity) ? rarity : undefined,
         event: typeof event === "string" ? new RegExp(event, "i") : undefined,
       };

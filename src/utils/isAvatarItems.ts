@@ -1,7 +1,7 @@
 import IAvatarItem, {
   IAvatarItemGender,
-  IAvatarItemKind,
-  IAvatarRarity,
+  IAvatarItemType,
+  IAvatarItemRarity,
 } from "../types/AvatarItem";
 
 function isAvatarItem(item: unknown): item is IAvatarItem {
@@ -12,20 +12,20 @@ function isAvatarItemGender(gender: unknown): gender is IAvatarItemGender {
   return gender === "FEMALE" || gender === "MALE" || gender === "";
 }
 
-function isAvatarItemKind(kind: unknown): kind is IAvatarItemKind {
+function isAvatarItemType(type: unknown): type is IAvatarItemType {
   return (
-    kind === "SHIRT" ||
-    kind === "HAIR" ||
-    kind === "FRONT" ||
-    kind === "GRAVESTONE" ||
-    kind === "BACK" ||
-    kind === "MOUTH" ||
-    kind === "GLASSES" ||
-    kind === "MASK"
+    type === "SHIRT" ||
+    type === "HAIR" ||
+    type === "FRONT" ||
+    type === "GRAVESTONE" ||
+    type === "BACK" ||
+    type === "MOUTH" ||
+    type === "GLASSES" ||
+    type === "MASK"
   );
 }
 
-function isAvatarItemRarity(rarity: unknown): rarity is IAvatarRarity {
+function isAvatarItemRarity(rarity: unknown): rarity is IAvatarItemRarity {
   return (
     rarity === "COMMON" ||
     rarity === "RARE" ||
@@ -44,6 +44,6 @@ export {
   convertIntoAvatarItemsList,
   isAvatarItem,
   isAvatarItemGender,
-  isAvatarItemKind,
+  isAvatarItemType,
   isAvatarItemRarity,
 };
