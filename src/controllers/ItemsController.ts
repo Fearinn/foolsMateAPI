@@ -29,7 +29,7 @@ class AvatarItemsController {
       const page = request.query.page;
       const gender = request.query.gender;
       const costInGold = request.query.gold;
-      const constInRoses = request.query.gold;
+      const constInRoses = request.query.roses;
       const rarity = request.query.rarity;
       const type = request.query.type;
       const event = request.query.event;
