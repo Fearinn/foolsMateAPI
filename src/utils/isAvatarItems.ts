@@ -1,8 +1,8 @@
 import IAvatarItem, {
   IAvatarItemGender,
   IAvatarItemType,
-  IAvatarItemRarity,
 } from "../types/AvatarItem";
+import IRarity from "../types/Rarity";
 
 function isAvatarItem(item: unknown): item is IAvatarItem {
   return !!(item as IAvatarItem).rarity && !!(item as IAvatarItem).type;
@@ -25,7 +25,7 @@ function isAvatarItemType(type: unknown): type is IAvatarItemType {
   );
 }
 
-function isAvatarItemRarity(rarity: unknown): rarity is IAvatarItemRarity {
+function isAvatarItemRarity(rarity: unknown): rarity is IRarity {
   return (
     rarity === "COMMON" ||
     rarity === "RARE" ||
@@ -34,14 +34,8 @@ function isAvatarItemRarity(rarity: unknown): rarity is IAvatarItemRarity {
   );
 }
 
-function convertIntoAvatarItemsList(list: unknown[]): IAvatarItem[] {
-  const avatarItemsList = list.filter((item): item is IAvatarItem =>
-    isAvatarItem(item)
-  );
-  return avatarItemsList;
-}
+
 export {
-  convertIntoAvatarItemsList,
   isAvatarItem,
   isAvatarItemGender,
   isAvatarItemType,
