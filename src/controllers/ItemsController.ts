@@ -87,7 +87,7 @@ class RoleIconsController {
         rarity: isRarity(rarity) ? rarity : undefined,
         roleId:
           typeof roleId === "string"
-            ? new RegExp(roleId.replace(/\s+/g, "_"), "i")
+            ? new RegExp(roleId.replace(/\s+/g, "-"), "i")
             : undefined,
       };
 
