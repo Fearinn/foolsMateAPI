@@ -3,15 +3,17 @@ import IAvatarItem, {
   IAvatarItemType,
 } from "../types/AvatarItem";
 
-function isAvatarItem(item: unknown): item is IAvatarItem {
+export function isAvatarItem(item: unknown): item is IAvatarItem {
   return !!(item as IAvatarItem).rarity && !!(item as IAvatarItem).type;
 }
 
-function isAvatarItemGender(gender: unknown): gender is IAvatarItemGender {
+export function isAvatarItemGender(
+  gender: unknown
+): gender is IAvatarItemGender {
   return gender === "FEMALE" || gender === "MALE" || gender === "";
 }
 
-function isAvatarItemType(type: unknown): type is IAvatarItemType {
+export function isAvatarItemType(type: unknown): type is IAvatarItemType {
   return (
     type === "SHIRT" ||
     type === "HAIR" ||
@@ -23,11 +25,3 @@ function isAvatarItemType(type: unknown): type is IAvatarItemType {
     type === "MASK"
   );
 }
-
-
-
-export {
-  isAvatarItem,
-  isAvatarItemGender,
-  isAvatarItemType,
-};

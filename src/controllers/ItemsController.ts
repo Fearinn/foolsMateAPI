@@ -1,17 +1,17 @@
 import instance from "../services/index.js";
 import express from "express";
-import pagination from "../utils/pagination.js";
+import { paginate } from "../utils/pagination.js";
 import {
   isAvatarItem,
   isAvatarItemGender,
   isAvatarItemType,
 } from "../utils/isAvatarItems.js";
-import dataFilter from "../utils/dataFilter.js";
+import { dataFilter } from "../utils/dataFilter.js";
 import IAvatarItem from "../types/AvatarItem.js";
-import filterByType from "../utils/filterByType.js";
+import { filterByType } from "../utils/filterByType.js";
 import { isRoleIcon } from "../utils/isRoleIcon.js";
 import IRoleIcon from "../types/RoleIcon.js";
-import isRarity from "../utils/isRarity.js";
+import { isRarity } from "../utils/isRarity.js";
 
 class AvatarItemsController {
   static getAll = async (
@@ -49,7 +49,7 @@ class AvatarItemsController {
       const safeData = filterByType<IAvatarItem>(data, isAvatarItem);
       const filteredData = dataFilter<IAvatarItem>(safeData, filterBody);
 
-      const dataPage = pagination<IAvatarItem>(
+      const dataPage = paginate<IAvatarItem>(
         filteredData,
         safeData,
         page,
@@ -85,18 +85,16 @@ class RoleIconsController {
 
       const filterBody: Partial<IRoleIcon> = {
         rarity: isRarity(rarity) ? rarity : undefined,
-        roleId: typeof roleId === "string" ? new RegExp(roleId.replace(/\s+/g, "_"), "i") : undefined,
+        roleId:
+          typeof roleId === "string"
+            ? new RegExp(roleId.replace(/\s+/g, "_"), "i")
+            : undefined,
       };
 
       const safeData = filterByType<IRoleIcon>(data, isRoleIcon);
       const filteredData = dataFilter<IRoleIcon>(safeData, filterBody);
 
-      const dataPage = pagination<IRoleIcon>(
-        filteredData,
-        safeData,
-        page,
-        limit
-      );
+      const dataPage = paginate<IRoleIcon>(filteredData, safeData, page, limit);
 
       response.status(status).json(dataPage);
     } catch (error) {

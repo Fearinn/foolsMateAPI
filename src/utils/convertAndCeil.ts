@@ -1,6 +1,8 @@
-export default function convertAndCeil(query: unknown) {
+export function convertAndCeil(query: unknown) {
   if (!query) return NaN;
   const convertedQuery = Number(query);
   const ceiledQuery = Math.ceil(convertedQuery);
   return ceiledQuery;
 }
+
+

@@ -1,4 +1,4 @@
-function dataFilter<T = unknown>(list: T[], body: Partial<T>) {
+export function dataFilter<T = unknown>(list: T[], body: Partial<T>) {
   let filteredList = list;
   for (const prop in body) {
     filteredList = filteredList.filter((item) => {
@@ -15,5 +15,3 @@ function dataFilter<T = unknown>(list: T[], body: Partial<T>) {
   }
   return filteredList;
 }
-
-export default dataFilter;

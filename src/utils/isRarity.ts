@@ -1,6 +1,6 @@
 import IRarity from "../types/Rarity";
 
-function isRarity(rarity: unknown): rarity is IRarity {
+export function isRarity(rarity: unknown): rarity is IRarity {
     return (
       rarity === "COMMON" ||
       rarity === "RARE" ||
@@ -8,6 +8,3 @@ function isRarity(rarity: unknown): rarity is IRarity {
       rarity === "LEGENDARY"
     );
   }
-
-export default isRarity
-  

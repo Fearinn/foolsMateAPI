@@ -1,6 +1,6 @@
-import convertAndCeil from "./convertAndCeil.js";
+import {convertAndCeil} from "./convertAndCeil.js";
 
-export default function paginate<T = unknown>(
+export function paginate<T = unknown>(
   filteredData: T[],
   originalData: T[],
   page?: unknown,
