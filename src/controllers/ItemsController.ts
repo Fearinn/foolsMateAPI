@@ -9,7 +9,7 @@ import {
 import dataFilter from "../utils/dataFilter.js";
 import IAvatarItem from "../types/AvatarItem.js";
 import filterByType from "../utils/filterByType.js";
-import { isAvatarIcon } from "../utils/isAvatarIcon.js";
+import { isRoleIcon } from "../utils/isRoleIcon.js";
 import IRoleIcon from "../types/RoleIcon.js";
 import isRarity from "../utils/isRarity.js";
 
@@ -88,7 +88,7 @@ class RoleIconsController {
         roleId: typeof roleId === "string" ? new RegExp(roleId.replace(/\s+/g, "_"), "i") : undefined,
       };
 
-      const safeData = filterByType<IRoleIcon>(data, isAvatarIcon);
+      const safeData = filterByType<IRoleIcon>(data, isRoleIcon);
       const filteredData = dataFilter<IRoleIcon>(safeData, filterBody);
 
       const dataPage = pagination<IRoleIcon>(
