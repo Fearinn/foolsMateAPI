@@ -72,7 +72,7 @@ class RoleIconsController {
     response: express.Response
   ) => {
     try {
-      const { data, status } = await instance.get("/items/");
+      const { data, status } = await instance.get("/items/roleIcons");
 
       if (!Array.isArray(data)) {
         throw new Error("Type of response data don't match the expected type");
