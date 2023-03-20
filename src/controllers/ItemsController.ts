@@ -34,10 +34,10 @@ class AvatarItemsController {
       const type = request.query.type;
       const event = request.query.event;
 
-      const filterBody = {
+      const filterBody: Partial<IAvatarItem> = {
         gender: isAvatarItemGender(gender) ? gender : undefined,
         costInGold: Number(costInGold) || undefined,
-        constInRoses: Number(constInRoses) || undefined,
+        costInRoses: Number(constInRoses) || undefined,
         type: isAvatarItemType(type) ? type : undefined,
         rarity: isRarity(rarity) ? rarity : undefined,
         event:
