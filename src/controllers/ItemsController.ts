@@ -81,7 +81,7 @@ class RoleIconsController {
       const limit = request.query.limit;
       const page = request.query.page;
       const rarity = request.query.rarity;
-      const roleId = request.query.rarity;
+      const roleId = request.query.roleId;
 
       const filterBody: Partial<IRoleIcon> = {
         rarity: isRarity(rarity) ? rarity : undefined,
