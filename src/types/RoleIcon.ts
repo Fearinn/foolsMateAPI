@@ -7,7 +7,8 @@ type IRoleIcon = {
     width: number;
     height: number;
   };
-  roleId: RegExp
+  roleId: RegExp | string;
+  event: RegExp | string
 };
 
 export default IRoleIcon
