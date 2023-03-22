@@ -1,7 +1,7 @@
 import express from "express";
 import {
   AvatarItemsController, RoleIconsController,
-} from "../controllers/ItemsController.js";
+} from "../controllers/items/index.js";
 
 const router = express.Router();
 
