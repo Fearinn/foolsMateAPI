@@ -58,7 +58,7 @@ export class AvatarItemsController {
     } catch (error) {
       console.log(error);
       response
-        .status(501)
+        .status(500)
         .send("An unexpected error occurred! Please try again later");
     }
   };
