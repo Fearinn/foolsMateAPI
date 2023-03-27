@@ -1,7 +1,7 @@
 import express from "express";
 import instance from "../../services/index.js";
 import { filterByType } from "../../utils/filterByType.js";
-import { isLoadingScreen } from "../../utils/isLoadingScreen.js";
+import { isLoadingScreen } from "../../utils/typeGuards/isLoadingScreen.js";
 
 export class LoadingScreensController {
   static getRandom = async (_: express.Request, response: express.Response) => {

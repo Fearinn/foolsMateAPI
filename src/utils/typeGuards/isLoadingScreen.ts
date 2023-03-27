@@ -1,4 +1,4 @@
-import { ILoadingScreen } from "../types/LoadingScreen";
+import { ILoadingScreen } from "../../types/LoadingScreen";
 
 export function isLoadingScreen(item: unknown): item is ILoadingScreen {
   return (

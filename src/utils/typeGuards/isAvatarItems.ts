@@ -1,7 +1,7 @@
 import IAvatarItem, {
   IAvatarItemGender,
   IAvatarItemType,
-} from "../types/AvatarItem";
+} from "../../types/AvatarItem";
 
 export function isAvatarItem(item: unknown): item is IAvatarItem {
   return !!(item as IAvatarItem).rarity && !!(item as IAvatarItem).type;

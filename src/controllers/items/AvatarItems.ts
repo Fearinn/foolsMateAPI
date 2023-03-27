@@ -7,8 +7,8 @@ import {
   isAvatarItem,
   isAvatarItemGender,
   isAvatarItemType,
-} from "../../utils/isAvatarItems.js";
-import { isRarity } from "../../utils/isRarity.js";
+} from "../../utils/typeGuards/isAvatarItems.js";
+import { isRarity } from "../../utils//typeGuards/isRarity.js";
 import { paginate } from "../../utils/pagination.js";
 
 export class AvatarItemsController {

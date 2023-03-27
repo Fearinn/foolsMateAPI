@@ -3,8 +3,8 @@ import IRoleIcon from "../../types/RoleIcon.js";
 import instance from "../../services/index.js";
 import { dataFilter } from "../../utils/dataFilter.js";
 import { filterByType } from "../../utils/filterByType.js";
-import { isRarity } from "../../utils/isRarity.js";
-import { isRoleIcon } from "../../utils/isRoleIcon.js";
+import { isRarity } from "../../utils/typeGuards/isRarity.js";
+import { isRoleIcon } from "../../utils//typeGuards/isRoleIcon.js";
 import { paginate } from "../../utils/pagination.js";
 
 export class RoleIconsController {
