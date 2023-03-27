@@ -47,12 +47,12 @@ export class AvatarItemsController {
       const safeData = filterByType<IAvatarItem>(data, isAvatarItem);
       const filteredData = dataFilter<IAvatarItem>(safeData, filterBody);
 
-      const dataPage = paginate<IAvatarItem>(
+      const dataPage = paginate<IAvatarItem>({
         filteredData,
-        safeData,
+        originalData: safeData,
         page,
-        limit
-      );
+        itemsPerPage: limit,
+      });
 
       response.status(status).json(dataPage);
     } catch (error) {
