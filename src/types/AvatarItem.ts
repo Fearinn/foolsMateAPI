@@ -1,6 +1,6 @@
-import IRarity from "./Rarity";
+import { IRarity } from "./Rarity";
 
-type IAvatarItem = {
+export type IAvatarItem = {
   id: string;
   rarity: IRarity;
   costInGold?: number;
@@ -11,7 +11,7 @@ type IAvatarItem = {
   event?: RegExp | string;
 };
 
-type IAvatarItemType =
+export type IAvatarItemType =
   | "HAIR"
   | "FRONT"
   | "SHIRT"
@@ -22,8 +22,4 @@ type IAvatarItemType =
   | "GRAVESTONE"
   | "MOUTH";
 
-type IAvatarItemGender = "FEMALE" | "MALE" | "";
-
-export { IAvatarItemType, IAvatarItemGender};
-
-export default IAvatarItem;
+export type IAvatarItemGender = "FEMALE" | "MALE" | "";

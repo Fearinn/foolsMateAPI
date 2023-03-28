@@ -1,4 +1,5 @@
-import IAvatarItem, {
+import {
+  IAvatarItem,
   IAvatarItemGender,
   IAvatarItemType,
 } from "../../types/AvatarItem";

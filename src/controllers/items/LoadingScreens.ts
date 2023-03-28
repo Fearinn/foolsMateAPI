@@ -1,5 +1,5 @@
 import express from "express";
-import instance from "../../services/index.js";
+import { instance } from "../../services/index.js";
 import { filterByType } from "../../utils/filterByType.js";
 import { isLoadingScreen } from "../../utils/typeGuards/isLoadingScreen.js";
 

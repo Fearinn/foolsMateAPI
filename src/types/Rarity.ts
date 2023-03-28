@@ -1,3 +1,1 @@
-type IRarity = "COMMON" | "RARE" | "EPIC" | "LEGENDARY";
-
-export default IRarity
+export type IRarity = "COMMON" | "RARE" | "EPIC" | "LEGENDARY";

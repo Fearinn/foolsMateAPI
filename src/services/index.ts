@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "https://api.wolvesville.com/",
   timeout: 30000,
 });
@@ -18,5 +18,3 @@ instance.interceptors.request.use(
     throw new Error(error.message);
   }
 );
-
-export default instance;

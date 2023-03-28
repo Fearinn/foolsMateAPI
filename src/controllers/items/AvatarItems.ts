@@ -1,15 +1,15 @@
 import express from "express";
-import instance from "../../services/index.js";
-import IAvatarItem from "../../types/AvatarItem.js";
+import { instance } from "../../services/index.js";
+import { IAvatarItem } from "../../types/AvatarItem.js";
+import { isRarity } from "../../utils//typeGuards/isRarity.js";
 import { dataFilter } from "../../utils/dataFilter.js";
 import { filterByType } from "../../utils/filterByType.js";
+import { paginate } from "../../utils/pagination.js";
 import {
   isAvatarItem,
   isAvatarItemGender,
-  isAvatarItemType,
+  isAvatarItemType
 } from "../../utils/typeGuards/isAvatarItems.js";
-import { isRarity } from "../../utils//typeGuards/isRarity.js";
-import { paginate } from "../../utils/pagination.js";
 
 export class AvatarItemsController {
   static getAll = async (

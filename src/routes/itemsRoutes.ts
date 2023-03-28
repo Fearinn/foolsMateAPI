@@ -5,11 +5,9 @@ import {
   RoleIconsController,
 } from "../controllers/items/index.js";
 
-const router = express.Router();
+export const itemsRouter = express.Router();
 
-router
+itemsRouter
   .get("/items/avatarItems", AvatarItemsController.getAll)
   .get("/items/roleIcons", RoleIconsController.getAll)
   .get("/items/randomLoadingScreen", LoadingScreensController.getRandom);
-
-export default router;

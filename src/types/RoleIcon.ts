@@ -1,6 +1,6 @@
-import IRarity from "./Rarity";
+import { IRarity } from "./Rarity";
 
-type IRoleIcon = {
+export type IRoleIcon = {
   rarity: IRarity;
   img: {
     url: string;
@@ -8,7 +8,5 @@ type IRoleIcon = {
     height: number;
   };
   roleId: RegExp | string;
-  event: RegExp | string
+  event: RegExp | string;
 };
-
-export default IRoleIcon

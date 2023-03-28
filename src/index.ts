@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "./routes/index.js";
+import { routes } from "./routes/index.js";
 import cors from "cors";
 import * as dotenv from "dotenv";
 
@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://wolvesville-wiki.vercel.app",
+    origin: ["https://wolvesville-wiki.vercel.app"],
     optionsSuccessStatus: 200,
   })
 );

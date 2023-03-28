@@ -1,11 +1,11 @@
 import express from "express";
-import IRoleIcon from "../../types/RoleIcon.js";
-import instance from "../../services/index.js";
+import { instance } from "../../services/index.js";
+import { IRoleIcon } from "../../types/RoleIcon.js";
+import { isRoleIcon } from "../../utils//typeGuards/isRoleIcon.js";
 import { dataFilter } from "../../utils/dataFilter.js";
 import { filterByType } from "../../utils/filterByType.js";
-import { isRarity } from "../../utils/typeGuards/isRarity.js";
-import { isRoleIcon } from "../../utils//typeGuards/isRoleIcon.js";
 import { paginate } from "../../utils/pagination.js";
+import { isRarity } from "../../utils/typeGuards/isRarity.js";
 
 export class RoleIconsController {
   static getAll = async (

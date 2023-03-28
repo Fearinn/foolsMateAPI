@@ -1,4 +1,4 @@
-import IRarity from "./Rarity";
+import {IRarity} from "./Rarity";
 
 export type ILoadingScreen = {
   id: string;
