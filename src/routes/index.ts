@@ -1,4 +1,5 @@
 import express from "express";
+import { battlePassRouter } from "./battlePass.js";
 import { itemsRouter } from "./itemsRoutes.js";
 
 const basicRoute = express.Router();
@@ -8,5 +9,5 @@ basicRoute.get("/", (_: express.Request, response: express.Response) => {
 });
 
 export function routes(app: express.Application) {
-  app.use(express.json(), basicRoute, itemsRouter);
+  app.use(express.json(), basicRoute, itemsRouter, battlePassRouter);
 }
