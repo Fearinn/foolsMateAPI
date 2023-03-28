@@ -9,5 +9,6 @@ export const itemsRouter = express.Router();
 
 itemsRouter
   .get("/items/avatarItems", AvatarItemsController.getAll)
+  .post("/items/avatarItemsByIds", AvatarItemsController.getByIds)
   .get("/items/roleIcons", RoleIconsController.getAll)
   .get("/items/randomLoadingScreen", LoadingScreensController.getRandom);
