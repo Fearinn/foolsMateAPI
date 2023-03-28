@@ -1,4 +1,4 @@
-export type IBattlePassSeaon = {
+export type Season = {
   startTime: string;
   number: number;
   durationInDays: number;
