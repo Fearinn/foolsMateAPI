@@ -7,7 +7,7 @@ export class SeasonController {
     try {
       const { data, status } = await instance.get("/battlePass/season");
 
-      if (isSeason(data)) {
+      if (!isSeason(data)) {
         throw new Error("Type of response data don't match the expected type");
       }
 
