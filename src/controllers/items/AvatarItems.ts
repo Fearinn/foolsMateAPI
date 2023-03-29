@@ -48,8 +48,7 @@ export class AvatarItemsController {
       const filteredData = dataFilter<IAvatarItem>(safeData, filterBody);
 
       const dataPage = paginate<IAvatarItem>({
-        filteredData,
-        originalData: safeData,
+        data: filteredData,
         page,
         itemsPerPage: limit,
       });

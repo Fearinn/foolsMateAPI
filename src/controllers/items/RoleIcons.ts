@@ -36,8 +36,7 @@ export class RoleIconsController {
       const filteredData = dataFilter<IRoleIcon>(safeData, filterBody);
 
       const dataPage = paginate<IRoleIcon>({
-        filteredData,
-        originalData: safeData,
+        data: filteredData,
         page,
         itemsPerPage: limit,
       });

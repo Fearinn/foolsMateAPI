@@ -1,31 +1,27 @@
 import { convertAndCeil } from "./convertAndCeil.js";
 
 export function paginate<T = unknown>(args: {
-  filteredData: T[];
-  originalData: T[];
+  data: T[];
   page?: unknown;
   itemsPerPage?: unknown;
 }) {
-  const itemsPerPageCeiled =
-    convertAndCeil(args.itemsPerPage) || args.originalData.length;
+  const itemsPerPageCeiled = convertAndCeil(args.itemsPerPage) || 25;
 
-  const numberOfPages = convertAndCeil(
-    args.filteredData.length / itemsPerPageCeiled
-  );
+  const numberOfPages = convertAndCeil(args.data.length / itemsPerPageCeiled);
 
   const pageCeiled =
     (convertAndCeil(args.page) || 1) > numberOfPages
       ? numberOfPages
       : convertAndCeil(args.page) || 1;
 
-  const paginatedData = args.filteredData.slice(
+  const paginatedData = args.data.slice(
     itemsPerPageCeiled * (pageCeiled - 1),
     itemsPerPageCeiled * pageCeiled
   );
 
   return {
     count: paginatedData.length,
-    totalCount: args.filteredData.length,
+    totalCount: args.data.length,
     currentPage: pageCeiled,
     numberOfPages,
     items: paginatedData,
