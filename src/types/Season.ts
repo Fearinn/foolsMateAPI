@@ -15,8 +15,6 @@ type IReward = {
   type: IRewardType;
   amount: number;
   free: boolean;
-  avatarItemIdMale?: string;
-  avatarItemIdFemale?: string;
 };
 
 export type IRewardType =
