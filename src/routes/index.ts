@@ -1,6 +1,6 @@
 import express from "express";
 import { battlePassRouter } from "./battlePass.js";
-import { itemsRouter } from "./itemsRoutes.js";
+import { itemsRouter } from "./items.js";
 
 const basicRoute = express.Router();
 
