@@ -5,7 +5,7 @@ export function paginate<T = unknown>(args: {
   page?: unknown;
   itemsPerPage?: unknown;
 }) {
-  const itemsPerPageCeiled = convertAndCeil(args.itemsPerPage) || 25;
+  const itemsPerPageCeiled = convertAndCeil(args.itemsPerPage) || 100;
 
   const numberOfPages = convertAndCeil(args.data.length / itemsPerPageCeiled);
 
