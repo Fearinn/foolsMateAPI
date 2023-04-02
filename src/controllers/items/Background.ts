@@ -40,10 +40,9 @@ export class BackgroundsController {
       const ids = request.body.ids;
 
       const safeIds = filterByType<string>(ids, (id) => typeof id === "string");
-      console.log(safeIds, ids);
 
       const safeData = filterByType<IBackground>(data, isBackground);
-      console.log(safeData);
+
       const selectedItems = safeData.filter((item) =>
         safeIds.includes(item.id)
       );
