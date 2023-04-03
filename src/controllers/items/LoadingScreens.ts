@@ -9,7 +9,7 @@ export class LoadingScreensController {
       const { data, status } = await instance.get("/items/loadingScreens");
 
       if (!Array.isArray(data)) {
-        throw new Error("Type of response data don't match the expected type");
+        throw new Error("Type of response data doesn't match the expected type");
       }
 
       const filteredData = filterByType(data, isLoadingScreen);

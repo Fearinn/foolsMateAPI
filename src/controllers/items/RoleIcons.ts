@@ -16,7 +16,7 @@ export class RoleIconsController {
       const { data, status } = await instance.get("/items/roleIcons");
 
       if (!Array.isArray(data)) {
-        throw new Error("Type of response data don't match the expected type");
+        throw new Error("Type of response data doesn't match the expected type");
       }
 
       const limit = request.query.limit;

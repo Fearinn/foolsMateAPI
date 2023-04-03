@@ -20,7 +20,7 @@ export class AvatarItemsController {
       const { data, status } = await instance.get("/items/avatarItems");
 
       if (!Array.isArray(data)) {
-        throw new Error("Type of response data don't match the expected type");
+        throw new Error("Type of response data doesn't match the expected type");
       }
 
       const limit = request.query.limit;
@@ -70,7 +70,7 @@ export class AvatarItemsController {
       const axiosResponse = await instance.get("/items/avatarItems");
 
       if (!axiosResponse || !Array.isArray(axiosResponse.data)) {
-        throw new Error("Type of response data don't match the expected type");
+        throw new Error("Type of response data doesn't match the expected type");
       }
 
       const { data, status } = axiosResponse;

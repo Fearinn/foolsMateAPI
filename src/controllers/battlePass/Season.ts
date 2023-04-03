@@ -10,7 +10,7 @@ export class SeasonController {
       const { data, status } = await instance.get("/battlePass/season");
 
       if (!isSeason(data)) {
-        throw new Error("Type of response data don't match the expected type");
+        throw new Error("Type of response data doesn't match the expected type");
       }
 
       response.status(status).json(data);
@@ -30,7 +30,7 @@ export class SeasonController {
       const { data, status } = await instance.get("/battlePass/season");
 
       if (!isSeason(data)) {
-        throw new Error("Type of response data don't match the expected type");
+        throw new Error("Type of response data doesn't match the expected type");
       }
 
       const rewardsTypes = request.body.types;
