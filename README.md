@@ -1,12 +1,10 @@
 # 🐺 Wolvesville Wiki API
 
-API to consume the Wolvesville official API. It was designed with the Wolvesville Wiki website in mind.
+An API to consume the official [Wolvesville API](https://api-docs.wolvesville.com/#/).
 
-## 🎯 Goals
+## ❓ Motivations
 
-- Adding an extra layer of logic, on the official API, in order to make it possible to perform filtering, pagination and other interactions.
-- Getting extra experience with a back-end;
-- Prevent leak of secrets in the front-end.
+The Wolvesville API is (or was) missing some features I would like for my [front-end application](https://github.com/Fearinn/wolvesvilleWiki), such as pagination and filtering. I also needed some experience with back-end and had to prevent secrets from leaking, so I decided to build this as an extra layer of logic on the official API.
 
 # 👨‍💻Tech stack
 
