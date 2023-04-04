@@ -12,6 +12,7 @@ itemsRouter
   .get("/items/avatarItems", AvatarItemsController.getAll)
   .post("/items/avatarItemsByIds", AvatarItemsController.getByIds)
   .get("/items/roleIcons", RoleIconsController.getAll)
+  .get("/items/loadingScreens", LoadingScreensController.getAll)
   .get("/items/randomLoadingScreen", LoadingScreensController.getRandom)
   .get("/items/backgrounds", BackgroundsController.getAll)
   .post("/items/backgroundsByIds", BackgroundsController.getByIds);
