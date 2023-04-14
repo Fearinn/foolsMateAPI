@@ -20,7 +20,9 @@ export class AvatarItemsController {
       const { data, status } = await instance.get("/items/avatarItems");
 
       if (!Array.isArray(data)) {
-        throw new Error("Type of response data doesn't match the expected type");
+        throw new Error(
+          "Type of response data doesn't match the expected type"
+        );
       }
 
       const limit = request.query.limit;
@@ -67,23 +69,25 @@ export class AvatarItemsController {
     response: express.Response
   ) => {
     try {
-      const axiosResponse = await instance.get("/items/avatarItems");
+      const { data, status } = await instance.get("/items/avatarItems");
 
-      if (!axiosResponse || !Array.isArray(axiosResponse.data)) {
-        throw new Error("Type of response data doesn't match the expected type");
+      const { ids = "" } = request.query;
+
+      if (typeof ids !== "string") {
+        throw new Error("Bad request");
       }
 
-      const { data, status } = axiosResponse;
+      if (!Array.isArray(data)) {
+        throw new Error(
+          "Type of response data doesn't match the expected type"
+        );
+      }
 
-      const ids = request.body.ids;
-
-      const safeIds = filterByType<string>(ids, (id) => typeof id === "string");
+      const idList = ids.split(":");
 
       const safeData = filterByType<IAvatarItem>(data, isAvatarItem);
 
-      const selectedItems = safeData.filter((item) =>
-        safeIds.includes(item.id)
-      );
+      const selectedItems = safeData.filter((item) => idList.includes(item.id));
 
       if (selectedItems.length <= 0) {
         response
