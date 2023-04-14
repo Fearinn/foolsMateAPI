@@ -10,9 +10,9 @@ export const itemsRouter = express.Router();
 
 itemsRouter
   .get("/items/avatarItems", AvatarItemsController.getAll)
-  .post("/items/avatarItemsByIds", AvatarItemsController.getByIds)
+  .get("/items/avatarItems/ids", AvatarItemsController.getByIds)
   .get("/items/roleIcons", RoleIconsController.getAll)
   .get("/items/loadingScreens", LoadingScreensController.getAll)
-  .get("/items/randomLoadingScreen", LoadingScreensController.getRandom)
+  .get("/items/loadingScreens/random", LoadingScreensController.getRandom)
   .get("/items/backgrounds", BackgroundsController.getAll)
-  .post("/items/backgroundsByIds", BackgroundsController.getByIds);
+  .get("/items/backgrounds/ids", BackgroundsController.getByIds);
