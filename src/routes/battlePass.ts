@@ -5,4 +5,4 @@ export const battlePassRouter = express.Router();
 
 battlePassRouter
   .get("/battlePass/season", SeasonController.getAll)
-  .post("/battlePass/seasonByRewardsType", SeasonController.getByRewardsType);
+  .get("/battlePass/season/rewards", SeasonController.getByRewardsType);
