@@ -1,21 +1,21 @@
 import express from "express";
 import { instance } from "../../services/index.js";
+import { TDataRequest } from "../../types/DataRequest.js";
 import { IRoleIcon } from "../../types/RoleIcon.js";
 import { isRoleIcon } from "../../utils//typeGuards/isRoleIcon.js";
 import { dataFilter } from "../../utils/dataFilter.js";
-import { filterByType } from "../../utils/filterByType.js";
-import { paginate } from "../../utils/pagination.js";
-import { isRarity } from "../../utils/typeGuards/isRarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
+import { filterByType } from "../../utils/filterByType.js";
+import { isRarity } from "../../utils/typeGuards/isRarity.js";
 
 export class RoleIconsController {
   static getAll = async (
-    request: express.Request,
-    response: express.Response,
+    request: TDataRequest<IRoleIcon>,
+    _: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data, status } = await instance.get("/items/roleIcons");
+      const { data } = await instance.get("/items/roleIcons");
 
       if (!Array.isArray(data)) {
         throw new BaseError(
@@ -23,7 +23,7 @@ export class RoleIconsController {
         );
       }
 
-      const { limit, page, rarity, roleId } = request.query;
+      const { rarity, roleId } = request.query;
 
       const filterBody: Partial<IRoleIcon> = {
         rarity: isRarity(rarity) ? rarity : undefined,
@@ -36,13 +36,8 @@ export class RoleIconsController {
       const safeData = filterByType<IRoleIcon>(data, isRoleIcon);
       const filteredData = dataFilter<IRoleIcon>(safeData, filterBody);
 
-      const dataPage = paginate<IRoleIcon>({
-        data: filteredData,
-        page,
-        itemsPerPage: limit,
-      });
-
-      response.status(status).json(dataPage);
+      request.data = filteredData;
+      next();
     } catch (err) {
       next(err);
     }

@@ -4,7 +4,6 @@ import { IAvatarItem } from "../../types/AvatarItem.js";
 import { isRarity } from "../../utils//typeGuards/isRarity.js";
 import { dataFilter } from "../../utils/dataFilter.js";
 import { filterByType } from "../../utils/filterByType.js";
-import { paginate } from "../../utils/pagination.js";
 import {
   isAvatarItem,
   isAvatarItemGender,
@@ -12,15 +11,17 @@ import {
 } from "../../utils/typeGuards/isAvatarItems.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
 import { BadRequest } from "../../utils/errors/BadRequest.js";
+import { TDataRequest } from "../../types/DataRequest.js";
+import { NotFound } from "../../utils/errors/NotFound.js";
 
 export class AvatarItemsController {
   static getAll = async (
-    request: express.Request,
-    response: express.Response,
+    request: TDataRequest<IAvatarItem>,
+    _: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data, status } = await instance.get("/items/avatarItems");
+      const { data } = await instance.get("/items/avatarItems");
 
       if (!Array.isArray(data)) {
         throw new BaseError(
@@ -28,16 +29,8 @@ export class AvatarItemsController {
         );
       }
 
-      const {
-        limit,
-        page,
-        gender,
-        costInGold,
-        costInRoses,
-        rarity,
-        type,
-        event,
-      } = request.query;
+      const { gender, costInGold, costInRoses, rarity, type, event } =
+        request.query;
 
       const filterBody: Partial<IAvatarItem> = {
         gender: isAvatarItemGender(gender) ? gender : undefined,
@@ -54,25 +47,21 @@ export class AvatarItemsController {
       const safeData = filterByType<IAvatarItem>(data, isAvatarItem);
       const filteredData = dataFilter<IAvatarItem>(safeData, filterBody);
 
-      const dataPage = paginate<IAvatarItem>({
-        data: filteredData,
-        page,
-        itemsPerPage: limit,
-      });
+      request.data = filteredData;
 
-      response.status(status).json(dataPage);
+      next();
     } catch (err) {
       next(err);
     }
   };
 
   static getByIds = async (
-    request: express.Request,
-    response: express.Response,
+    request: TDataRequest<IAvatarItem>,
+    _: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data, status } = await instance.get("/items/avatarItems");
+      const { data } = await instance.get("/items/avatarItems");
 
       const { ids = "" } = request.query;
 
@@ -93,13 +82,11 @@ export class AvatarItemsController {
       const selectedItems = safeData.filter((item) => idList.includes(item.id));
 
       if (selectedItems.length <= 0) {
-        response
-          .status(404)
-          .send("No item was found with the given parameters");
-        return;
+        throw new NotFound("avatar item");
       }
 
-      response.status(status).send(selectedItems);
+      request.data = selectedItems;
+      next();
     } catch (err) {
       next(err);
     }

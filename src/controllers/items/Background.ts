@@ -6,15 +6,16 @@ import { isBackground } from "../../utils/typeGuards/isBackground.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
 import { NotFound } from "../../utils/errors/NotFound.js";
 import { BadRequest } from "../../utils/errors/BadRequest.js";
+import { TDataRequest } from "../../types/DataRequest.js";
 
 export class BackgroundsController {
   static getAll = async (
-    _: express.Request,
-    response: express.Response,
+    request: TDataRequest<IBackground>,
+    _: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data, status } = await instance.get("/items/backgrounds");
+      const { data } = await instance.get("/items/backgrounds");
 
       if (!Array.isArray(data)) {
         throw new BaseError(
@@ -24,19 +25,22 @@ export class BackgroundsController {
 
       const selectedItems = filterByType<IBackground>(data, isBackground);
 
-      response.status(status).json(selectedItems);
+      request.data = selectedItems;
+
+      next();
     } catch (err) {
       next(err);
     }
   };
+  
 
   static getByIds = async (
-    request: express.Request,
+    request: TDataRequest<IBackground>,
     response: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data, status } = await instance.get("/items/backgrounds");
+      const { data } = await instance.get("/items/backgrounds");
 
       const { ids = "" } = request.query;
 
@@ -60,7 +64,9 @@ export class BackgroundsController {
         throw new NotFound("background");
       }
 
-      response.status(status).send(selectedItems);
+      request.data = selectedItems;
+
+      next();
     } catch (err) {
       next(err);
     }

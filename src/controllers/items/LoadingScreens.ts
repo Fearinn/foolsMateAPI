@@ -4,15 +4,16 @@ import { filterByType } from "../../utils/filterByType.js";
 import { isLoadingScreen } from "../../utils/typeGuards/isLoadingScreen.js";
 import { ILoadingScreen } from "../../types/LoadingScreen.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
+import { TDataRequest } from "../../types/DataRequest.js";
 
 export class LoadingScreensController {
   static getAll = async (
-    _: express.Request,
-    response: express.Response,
+    request: TDataRequest<ILoadingScreen>,
+    _: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data, status } = await instance.get("/items/loadingScreens");
+      const { data } = await instance.get("/items/loadingScreens");
 
       if (!Array.isArray(data)) {
         throw new BaseError(
@@ -20,9 +21,11 @@ export class LoadingScreensController {
         );
       }
 
-      const selectedItems = filterByType<ILoadingScreen>(data, isLoadingScreen);
+      const filteredItems = filterByType<ILoadingScreen>(data, isLoadingScreen);
 
-      response.status(status).json(selectedItems);
+      request.data = filteredItems;
+
+      next();
     } catch (err) {
       next(err);
     }
@@ -47,7 +50,7 @@ export class LoadingScreensController {
       const randomIndex = Math.ceil(Math.random() * data.length);
       const randomLoadingScreen = filteredData[randomIndex];
 
-      response.status(status).json(randomLoadingScreen);
+      response.status(status).send(randomLoadingScreen);
     } catch (err) {
       next(err);
     }
