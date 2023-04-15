@@ -6,23 +6,24 @@ import { dataFilter } from "../../utils/dataFilter.js";
 import { filterByType } from "../../utils/filterByType.js";
 import { paginate } from "../../utils/pagination.js";
 import { isRarity } from "../../utils/typeGuards/isRarity.js";
+import { BaseError } from "../../utils/errors/BaseError.js";
 
 export class RoleIconsController {
   static getAll = async (
     request: express.Request,
-    response: express.Response
+    response: express.Response,
+    next: express.NextFunction
   ) => {
     try {
       const { data, status } = await instance.get("/items/roleIcons");
 
       if (!Array.isArray(data)) {
-        throw new Error("Type of response data doesn't match the expected type");
+        throw new BaseError(
+          "Type of response data doesn't match the expected type"
+        );
       }
 
-      const limit = request.query.limit;
-      const page = request.query.page;
-      const rarity = request.query.rarity;
-      const roleId = request.query.roleId;
+      const { limit, page, rarity, roleId } = request.query;
 
       const filterBody: Partial<IRoleIcon> = {
         rarity: isRarity(rarity) ? rarity : undefined,
@@ -42,11 +43,8 @@ export class RoleIconsController {
       });
 
       response.status(status).json(dataPage);
-    } catch (error) {
-      console.log(error);
-      response
-        .status(500)
-        .send("An unexpected error occurred! Please try again later");
+    } catch (err) {
+      next(err);
     }
   };
 }

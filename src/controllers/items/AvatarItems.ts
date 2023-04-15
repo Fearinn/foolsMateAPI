@@ -10,34 +10,39 @@ import {
   isAvatarItemGender,
   isAvatarItemType,
 } from "../../utils/typeGuards/isAvatarItems.js";
+import { BaseError } from "../../utils/errors/BaseError.js";
+import { BadRequest } from "../../utils/errors/BadRequest.js";
 
 export class AvatarItemsController {
   static getAll = async (
     request: express.Request,
-    response: express.Response
+    response: express.Response,
+    next: express.NextFunction
   ) => {
     try {
       const { data, status } = await instance.get("/items/avatarItems");
 
       if (!Array.isArray(data)) {
-        throw new Error(
+        throw new BaseError(
           "Type of response data doesn't match the expected type"
         );
       }
 
-      const limit = request.query.limit;
-      const page = request.query.page;
-      const gender = request.query.gender;
-      const costInGold = request.query.gold;
-      const constInRoses = request.query.roses;
-      const rarity = request.query.rarity;
-      const type = request.query.type;
-      const event = request.query.event;
+      const {
+        limit,
+        page,
+        gender,
+        costInGold,
+        costInRoses,
+        rarity,
+        type,
+        event,
+      } = request.query;
 
       const filterBody: Partial<IAvatarItem> = {
         gender: isAvatarItemGender(gender) ? gender : undefined,
         costInGold: Number(costInGold) || undefined,
-        costInRoses: Number(constInRoses) || undefined,
+        costInRoses: Number(costInRoses) || undefined,
         type: isAvatarItemType(type) ? type : undefined,
         rarity: isRarity(rarity) ? rarity : undefined,
         event:
@@ -56,17 +61,15 @@ export class AvatarItemsController {
       });
 
       response.status(status).json(dataPage);
-    } catch (error) {
-      console.log(error);
-      response
-        .status(500)
-        .send("An unexpected error occurred! Please try again later");
+    } catch (err) {
+      next(err);
     }
   };
 
   static getByIds = async (
     request: express.Request,
-    response: express.Response
+    response: express.Response,
+    next: express.NextFunction
   ) => {
     try {
       const { data, status } = await instance.get("/items/avatarItems");
@@ -74,11 +77,11 @@ export class AvatarItemsController {
       const { ids = "" } = request.query;
 
       if (typeof ids !== "string") {
-        throw new Error("Bad request");
+        throw new BadRequest("Bad request");
       }
 
       if (!Array.isArray(data)) {
-        throw new Error(
+        throw new BaseError(
           "Type of response data doesn't match the expected type"
         );
       }
@@ -97,10 +100,8 @@ export class AvatarItemsController {
       }
 
       response.status(status).send(selectedItems);
-    } catch (error) {
-      response
-        .status(500)
-        .send("An unexpected error occurred! Please try again later");
+    } catch (err) {
+      next(err);
     }
   };
 }

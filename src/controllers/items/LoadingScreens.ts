@@ -3,14 +3,19 @@ import { instance } from "../../services/index.js";
 import { filterByType } from "../../utils/filterByType.js";
 import { isLoadingScreen } from "../../utils/typeGuards/isLoadingScreen.js";
 import { ILoadingScreen } from "../../types/LoadingScreen.js";
+import { BaseError } from "../../utils/errors/BaseError.js";
 
 export class LoadingScreensController {
-  static getAll = async (_: express.Request, response: express.Response) => {
+  static getAll = async (
+    _: express.Request,
+    response: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
       const { data, status } = await instance.get("/items/loadingScreens");
 
       if (!Array.isArray(data)) {
-        throw new Error(
+        throw new BaseError(
           "Type of response data doesn't match the expected type"
         );
       }
@@ -18,15 +23,16 @@ export class LoadingScreensController {
       const selectedItems = filterByType<ILoadingScreen>(data, isLoadingScreen);
 
       response.status(status).json(selectedItems);
-    } catch (error) {
-      console.log(error);
-      response
-        .status(500)
-        .send("An unexpected error occurred! Please try again later");
+    } catch (err) {
+      next(err);
     }
   };
 
-  static getRandom = async (_: express.Request, response: express.Response) => {
+  static getRandom = async (
+    _: express.Request,
+    response: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
       const { data, status } = await instance.get("/items/loadingScreens");
 
@@ -42,11 +48,8 @@ export class LoadingScreensController {
       const randomLoadingScreen = filteredData[randomIndex];
 
       response.status(status).json(randomLoadingScreen);
-    } catch (error) {
-      console.log(error);
-      response
-        .status(500)
-        .send("An unexpected error occurred! Please try again later");
+    } catch (err) {
+      next(err);
     }
   };
 }
