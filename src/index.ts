@@ -3,6 +3,7 @@ import { routes } from "./routes/index.js";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import { handleError } from "./middlewares/handleError.js";
+import { handlePage404 } from "./middlewares/handlePage404.js";
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.listen(port, () => {
 });
 
 routes(app);
+
+app.use((_, __, next) => handlePage404(next));
 
 app.use(
   (
