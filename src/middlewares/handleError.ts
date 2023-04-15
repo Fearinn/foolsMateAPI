@@ -8,5 +8,10 @@ export function handleError(err: unknown, res: express.Response) {
     return;
   }
 
+  if (err instanceof BaseError) {
+    err.send(res);
+    return;
+  }
+
   new BaseError().send(res);
 }
