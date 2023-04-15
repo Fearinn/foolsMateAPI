@@ -11,13 +11,13 @@ export function handlePagination<T>(
   try {
     const data = req.data;
 
-    const { page = 1, limit = 5 } = req.query;
+    const { page = 1, limit = 10 } = req.query;
 
     if (!Array.isArray(data)) {
       throw new BadRequest();
     }
 
-    const paginatedData = paginate<T>({ data, itemsPerPage: limit, page });
+    const paginatedData = paginate<T>({ data, limit, page });
 
     res.status(200).send(paginatedData);
   } catch (err) {
