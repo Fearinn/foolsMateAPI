@@ -1,12 +1,13 @@
-import { IRarity } from "./Rarity";
+import { z } from "zod";
+import { ZRarity } from "./Rarity.js";
+import { ZImage } from "./Image.js";
+import { ZRegExp } from "./RegExp.js";
+import { ZId } from "./ZId.js";
 
-export type IRoleIcon = {
-  rarity: IRarity;
-  img: {
-    url: string;
-    width: number;
-    height: number;
-  };
-  roleId: RegExp | string;
-  event: RegExp | string;
-};
+export const ZRoleIcon = z.object({
+  id: ZId,
+  rarity: ZRarity,
+  image: ZImage,
+  roleId: ZRegExp,
+  event: ZRegExp.optional(),
+});

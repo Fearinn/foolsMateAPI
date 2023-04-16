@@ -1,15 +1,10 @@
-import {IRarity} from "./Rarity";
+import { z } from "zod";
+import { ZImage } from "./Image.js";
+import { ZId } from "./ZId.js";
 
-export type ILoadingScreen = {
-  id: string;
-  rarity: IRarity;
-  image: IImage;
-  imageWide: IImage;
-  imagePrimaryColor: string;
-};
-
-type IImage = {
-  url: string;
-  width: number;
-  height: number;
-};
+export const ZLoadingScreen = z.object({
+  id: ZId,
+  image: ZImage,
+  imageWide: ZImage,
+  imagePrimaryColor: z.string(),
+});

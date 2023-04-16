@@ -1,21 +1,15 @@
-import { IRarity } from "./Rarity";
+import { z } from "zod";
+import { ZRarity } from "./Rarity.js";
+import { ZImage } from "./Image.js";
+import { ZId } from "./ZId.js";
 
-export type IBackground = {
-  id: string;
-  rarity: IRarity;
-  imageDay: IBackgroundImage;
-  imageDayWide: IBackgroundImage;
-  imageNight: IBackgroundImage;
-  imageNightWide: IBackgroundImage;
-  imageDaySmall: IBackgroundImage;
-  imageNightSmall: IBackgroundImage;
-  backgroundColorDay: string;
-  backgroundColorNight: string;
-  event?: string;
-};
-
-type IBackgroundImage = {
-  url: string;
-  width: number;
-  height: number;
-};
+export const ZBackground = z.object({
+  id: ZId,
+  rarity: ZRarity,
+  imageDay: ZImage,
+  imageDayWide: ZImage,
+  imageDaySmall: ZImage,
+  backgroundColorDay: z.string(),
+  backgroundColorNight: z.string(),
+  event: z.string().optional(),
+});
