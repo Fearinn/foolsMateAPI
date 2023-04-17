@@ -1,42 +1,31 @@
 import express from "express";
 import { instance } from "../../services/index.js";
-import { IBackground } from "../../types/Background.js";
-import { filterByType } from "../../utils/filterByType.js";
-import { isBackground } from "../../utils/typeGuards/isBackground.js";
-import { BaseError } from "../../utils/errors/BaseError.js";
-import { NotFound } from "../../utils/errors/NotFound.js";
-import { BadRequest } from "../../utils/errors/BadRequest.js";
+import { ZBackground } from "../../types/Background.js";
 import { TDataRequest } from "../../types/DataRequest.js";
+import { z } from "zod";
 
 export class BackgroundsController {
   static getAll = async (
-    request: TDataRequest<IBackground>,
+    request: TDataRequest<typeof ZBackground>,
     _: express.Response,
     next: express.NextFunction
   ) => {
     try {
       const { data } = await instance.get("/items/backgrounds");
 
-      if (!Array.isArray(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const parsedData = ZBackground.array().parse(data);
 
-      const selectedItems = filterByType<IBackground>(data, isBackground);
-
-      request.data = selectedItems;
+      request.data = parsedData;
 
       next();
     } catch (err) {
       next(err);
     }
   };
-  
 
   static getByIds = async (
-    request: TDataRequest<IBackground>,
-    response: express.Response,
+    request: TDataRequest<typeof ZBackground>,
+    _: express.Response,
     next: express.NextFunction
   ) => {
     try {
@@ -44,25 +33,15 @@ export class BackgroundsController {
 
       const { ids = "" } = request.query;
 
-      if (typeof ids !== "string") {
-        throw new BadRequest();
-      }
+      const parsedIds = z.string().parse(ids);
 
-      if (!Array.isArray(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const idList = parsedIds.split(":");
 
-      const idList = ids.split(":");
+      const parsedData = ZBackground.array().parse(data);
 
-      const safeData = filterByType<IBackground>(data, isBackground);
-
-      const selectedItems = safeData.filter((item) => idList.includes(item.id));
-
-      if (selectedItems.length <= 0) {
-        throw new NotFound("background");
-      }
+      const selectedItems = parsedData.filter((item) =>
+        idList.includes(item.id)
+      );
 
       request.data = selectedItems;
 

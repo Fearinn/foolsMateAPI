@@ -1,10 +1,7 @@
 import express from "express";
 import { instance } from "../../services/index.js";
-import { IRewardType, ISeason } from "../../types/Season.js";
-import { filterByType } from "../../utils/filterByType.js";
-import { isRewardType, isSeason } from "../../utils/typeGuards/isSeason.js";
-import { BaseError } from "../../utils/errors/BaseError.js";
-import { BadRequest } from "../../utils/errors/BadRequest.js";
+import { ZSeason } from "../../types/Season.js";
+import { z } from "zod";
 
 export class SeasonController {
   static getAll = async (
@@ -15,13 +12,9 @@ export class SeasonController {
     try {
       const { data, status } = await instance.get("/battlePass/season");
 
-      if (!isSeason(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const parsedData = ZSeason.parse(data);
 
-      response.status(status).json(data);
+      response.status(status).json(parsedData);
     } catch (err) {
       next(err);
     }
@@ -37,29 +30,18 @@ export class SeasonController {
 
       const { rewardsTypes = "" } = request.query;
 
-      if (typeof rewardsTypes !== "string") {
-        throw new BadRequest();
-      }
+      const parsedData = ZSeason.parse(data);
 
-      if (!isSeason(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const parsedTypes = z.string().parse(rewardsTypes);
 
-      const typesList = rewardsTypes.split(":");
+      const typesList = parsedTypes.split(":");
 
-      const safeRewardsTypes = filterByType<IRewardType>(
-        typesList,
-        isRewardType
+      const filteredRewards = parsedData.rewards.filter((reward) =>
+        typesList.includes(reward.type)
       );
 
-      const filteredRewards = data.rewards.filter((reward) =>
-        safeRewardsTypes.includes(reward.type)
-      );
-
-      const filteredData: ISeason = {
-        ...data,
+      const filteredData: z.infer<typeof ZSeason> = {
+        ...parsedData,
         rewards: filteredRewards,
       };
 

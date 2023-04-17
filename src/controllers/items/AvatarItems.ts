@@ -1,51 +1,45 @@
 import express from "express";
+import { z } from "zod";
 import { instance } from "../../services/index.js";
-import { IAvatarItem } from "../../types/AvatarItem.js";
-import { isRarity } from "../../utils//typeGuards/isRarity.js";
-import { dataFilter } from "../../utils/dataFilter.js";
-import { filterByType } from "../../utils/filterByType.js";
 import {
-  isAvatarItem,
-  isAvatarItemGender,
-  isAvatarItemType,
-} from "../../utils/typeGuards/isAvatarItems.js";
-import { BaseError } from "../../utils/errors/BaseError.js";
-import { BadRequest } from "../../utils/errors/BadRequest.js";
+  ZAvatarItem,
+  ZAvatarItemGender,
+  ZAvatarItemType,
+} from "../../types/AvatarItem.js";
 import { TDataRequest } from "../../types/DataRequest.js";
-import { NotFound } from "../../utils/errors/NotFound.js";
+import { ZRarity } from "../../types/Rarity.js";
+import { dataFilter } from "../../utils/dataFilter.js";
+import { ZId } from "../../types/ZId.js";
+
+const partialItem = ZAvatarItem.partial();
 
 export class AvatarItemsController {
   static getAll = async (
-    request: TDataRequest<IAvatarItem>,
+    request: TDataRequest<typeof partialItem>,
     _: express.Response,
     next: express.NextFunction
   ) => {
     try {
       const { data } = await instance.get("/items/avatarItems");
 
-      if (!Array.isArray(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const parsedData = ZAvatarItem.array().parse(data);
 
       const { gender, costInGold, costInRoses, rarity, type, event } =
         request.query;
 
-      const filterBody: Partial<IAvatarItem> = {
-        gender: isAvatarItemGender(gender) ? gender : undefined,
-        costInGold: Number(costInGold) || undefined,
-        costInRoses: Number(costInRoses) || undefined,
-        type: isAvatarItemType(type) ? type : undefined,
-        rarity: isRarity(rarity) ? rarity : undefined,
-        event:
-          typeof event === "string"
-            ? new RegExp(event.replace(/\s+/g, "_"), "i")
-            : undefined,
+      const filterBody = {
+        gender: ZAvatarItemGender.optional().parse(gender),
+        costInGold: z.number().optional().parse(costInGold),
+        costInRoses: z.number().optional().parse(costInRoses),
+        type: ZAvatarItemType.optional().parse(type),
+        rarity: ZRarity.optional().parse(rarity),
+        event: z.string().optional().parse(event),
       };
 
-      const safeData = filterByType<IAvatarItem>(data, isAvatarItem);
-      const filteredData = dataFilter<IAvatarItem>(safeData, filterBody);
+      const filteredData = dataFilter<Partial<z.infer<typeof ZAvatarItem>>>(
+        parsedData,
+        filterBody
+      );
 
       request.data = filteredData;
 
@@ -56,7 +50,7 @@ export class AvatarItemsController {
   };
 
   static getByIds = async (
-    request: TDataRequest<IAvatarItem>,
+    request: TDataRequest<typeof ZAvatarItem>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -65,25 +59,15 @@ export class AvatarItemsController {
 
       const { ids = "" } = request.query;
 
-      if (typeof ids !== "string") {
-        throw new BadRequest("Bad request");
-      }
+      const parsedData = ZAvatarItem.array().parse(data);
 
-      if (!Array.isArray(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const parsedIds = ZId.parse(ids);
 
-      const idList = ids.split(":");
+      const idList = parsedIds.split(":");
 
-      const safeData = filterByType<IAvatarItem>(data, isAvatarItem);
-
-      const selectedItems = safeData.filter((item) => idList.includes(item.id));
-
-      if (selectedItems.length <= 0) {
-        throw new NotFound("avatar item");
-      }
+      const selectedItems = parsedData.filter((item) =>
+        idList.includes(item.id)
+      );
 
       request.data = selectedItems;
       next();

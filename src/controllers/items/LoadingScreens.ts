@@ -1,29 +1,20 @@
 import express from "express";
 import { instance } from "../../services/index.js";
-import { filterByType } from "../../utils/filterByType.js";
-import { isLoadingScreen } from "../../utils/typeGuards/isLoadingScreen.js";
-import { ILoadingScreen } from "../../types/LoadingScreen.js";
-import { BaseError } from "../../utils/errors/BaseError.js";
+import { ZLoadingScreen } from "../../types/LoadingScreen.js";
 import { TDataRequest } from "../../types/DataRequest.js";
 
 export class LoadingScreensController {
   static getAll = async (
-    request: TDataRequest<ILoadingScreen>,
+    request: TDataRequest<typeof ZLoadingScreen>,
     _: express.Response,
     next: express.NextFunction
   ) => {
     try {
       const { data } = await instance.get("/items/loadingScreens");
 
-      if (!Array.isArray(data)) {
-        throw new BaseError(
-          "Type of response data doesn't match the expected type"
-        );
-      }
+      const parsedData = ZLoadingScreen.array().parse(data);
 
-      const filteredItems = filterByType<ILoadingScreen>(data, isLoadingScreen);
-
-      request.data = filteredItems;
+      request.data = parsedData;
 
       next();
     } catch (err) {
@@ -39,16 +30,10 @@ export class LoadingScreensController {
     try {
       const { data, status } = await instance.get("/items/loadingScreens");
 
-      if (!Array.isArray(data)) {
-        throw new Error(
-          "Type of response data doesn't match the expected type"
-        );
-      }
-
-      const filteredData = filterByType(data, isLoadingScreen);
+      const parsedData = ZLoadingScreen.array().parse(data);
 
       const randomIndex = Math.ceil(Math.random() * data.length);
-      const randomLoadingScreen = filteredData[randomIndex];
+      const randomLoadingScreen = parsedData[randomIndex];
 
       response.status(status).send(randomLoadingScreen);
     } catch (err) {
