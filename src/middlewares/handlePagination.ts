@@ -20,7 +20,7 @@ export function handlePagination<T extends z.ZodTypeAny>(
     const parsedPage = z.coerce.number().parse(page);
     const parsedLimit = z.coerce.number().parse(limit);
 
-    const paginatedData = paginate<T>(parsedData, parsedLimit, parsedPage);
+    const paginatedData = paginate<T>(parsedData, parsedPage, parsedLimit);
 
     res.status(200).send(paginatedData);
   } catch (err) {
