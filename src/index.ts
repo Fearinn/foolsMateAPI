@@ -11,10 +11,10 @@ dotenv.config();
 const app = express();
 
 app.use(
-  cors({
+  cors(/* {
     origin: ["https://wolvesville-wiki.vercel.app"],
     optionsSuccessStatus: 200,
-  })
+  } */)
 );
 
 const port = process.env.PORT || 3000;

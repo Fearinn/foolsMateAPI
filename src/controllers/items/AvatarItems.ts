@@ -9,7 +9,7 @@ import {
 import { TDataRequest } from "../../types/DataRequest.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { dataFilter } from "../../utils/dataFilter.js";
-import { ZId } from "../../types/ZId.js";
+import { ZId } from "../../types/Id.js";
 
 const partialItem = ZAvatarItem.partial();
 

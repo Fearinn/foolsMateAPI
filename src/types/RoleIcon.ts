@@ -2,7 +2,7 @@ import { z } from "zod";
 import { ZRarity } from "./Rarity.js";
 import { ZImage } from "./Image.js";
 import { ZRegExp } from "./RegExp.js";
-import { ZId } from "./ZId.js";
+import { ZId } from "./Id.js";
 
 export const ZRoleIcon = z.object({
   id: ZId,
