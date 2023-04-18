@@ -27,13 +27,21 @@ export class AvatarItemsController {
       const { gender, costInGold, costInRoses, rarity, type, event } =
         request.query;
 
+      const parsedEvent = z
+        .string()
+        .optional()
+        .parse(event)
+        ?.replace(/\s+/ig, "_");
+
+      console.log(parsedEvent);
+
       const filterBody = {
         gender: ZAvatarItemGender.optional().parse(gender),
         costInGold: z.number().optional().parse(costInGold),
         costInRoses: z.number().optional().parse(costInRoses),
         type: ZAvatarItemType.optional().parse(type),
         rarity: ZRarity.optional().parse(rarity),
-        event: z.string().optional().parse(event),
+        event: parsedEvent ? new RegExp(parsedEvent, "i") : parsedEvent,
       };
 
       const filteredData = dataFilter<Partial<z.infer<typeof ZAvatarItem>>>(

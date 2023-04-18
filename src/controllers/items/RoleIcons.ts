@@ -19,7 +19,7 @@ export class RoleIconsController {
 
       const parsedData = ZRoleIcon.array().parse(data);
 
-      const parsedRarity = z
+      const parsedRoleId = z
         .string()
         .optional()
         .parse(roleId)
@@ -27,7 +27,7 @@ export class RoleIconsController {
 
       const filterBody = {
         rarity: ZRarity.optional().parse(rarity),
-        roleId: parsedRarity ? new RegExp(parsedRarity, "i") : undefined,
+        roleId: parsedRoleId ? new RegExp(parsedRoleId, "i") : undefined,
       };
 
       const filteredData = dataFilter<z.infer<typeof ZRoleIcon>>(
