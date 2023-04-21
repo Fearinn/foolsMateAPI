@@ -11,6 +11,7 @@ export const itemsRouter = express.Router();
 itemsRouter
   .get("/items/avatarItems", AvatarItemsController.getAll)
   .get("/items/avatarItems/ids", AvatarItemsController.getByIds)
+  .post("/items/avatarItems/update", AvatarItemsController.updateAll)
   .get("/items/roleIcons", RoleIconsController.getAll)
   .get("/items/loadingScreens", LoadingScreensController.getAll)
   .get("/items/loadingScreens/random", LoadingScreensController.getRandom)
