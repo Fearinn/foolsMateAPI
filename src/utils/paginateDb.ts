@@ -13,8 +13,6 @@ export async function paginateDb(
     })
     .exec();
 
-    console.log(dbPagination)
-
   const totalData = dbPagination[0].totalData;
   const totalCount =
     totalData.length > 0 ? dbPagination[0].totalCount[0].count : 0;
