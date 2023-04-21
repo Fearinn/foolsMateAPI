@@ -1,4 +1,4 @@
-export function paginate<T = unknown>(data: T[], page = 1, limit = 10) {
+export function paginateSimply<T = unknown>(data: T[], page = 1, limit = 10) {
   const limitCeiled = Math.ceil(limit) || 10;
 
   const numberOfPages = Math.ceil(data.length / limitCeiled);
