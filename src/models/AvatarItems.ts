@@ -6,6 +6,7 @@ const avatarItemSchema = new mongoose.Schema<z.infer<typeof ZAvatarItem>>({
   id: {
     type: mongoose.Schema.Types.String,
     required: true,
+    index: true,
   },
   rarity: {
     type: mongoose.Schema.Types.String,
