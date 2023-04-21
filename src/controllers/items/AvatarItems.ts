@@ -12,6 +12,7 @@ import {
 import { TDataRequest } from "../../types/DataRequest.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
+import { BaseError } from "../../utils/errors/BaseError.js";
 
 const partialItem = ZAvatarItem.partial();
 
@@ -89,12 +90,18 @@ export class AvatarItemsController {
   };
 
   static updateAll = async (
-    _: express.Request,
+    req: express.Request,
     response: express.Response,
     next: express.NextFunction
   ) => {
     try {
       const { data } = await instance.get("/items/avatarItems");
+
+      const { Authorization } = req.headers;
+
+      if (Authorization === process.env["UPDATE_AUTHORIZATION"]) {
+        throw new BaseError("Access unauthorized", 401);
+      }
 
       const parsedData = ZAvatarItem.array().parse(data);
 
