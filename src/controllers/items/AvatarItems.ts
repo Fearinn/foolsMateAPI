@@ -9,7 +9,6 @@ import {
   ZAvatarItemGender,
   ZAvatarItemType,
 } from "../../types/AvatarItem.js";
-import { TDataRequest } from "../../types/DataRequest.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
@@ -63,26 +62,32 @@ export class AvatarItemsController {
   };
 
   static getByIds = async (
-    request: TDataRequest<typeof ZAvatarItem>,
+    request: TAggregateRequest<z.infer<typeof partialItem>>,
     _: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const { data } = await instance.get("/items/avatarItems");
-
       const { ids = "" } = request.query;
-
-      const parsedData = ZAvatarItem.array().parse(data);
 
       const parsedIds = ZId.parse(ids);
 
-      const idList = parsedIds.split(":");
+      const idsList = parsedIds.split(":");
 
-      const selectedItems = parsedData.filter((item) =>
-        idList.includes(item.id)
-      );
+      const data = AvatarItemModel.aggregate<z.infer<typeof partialItem>>([
+        {
+          $match: {
+            id: {
+              $in: idsList,
+            },
+          },
+        },
+      ]);
 
-      request.data = selectedItems;
+      const parsedData = z
+        .instanceof(mongoose.Aggregate<z.infer<typeof partialItem>>)
+        .parse(data);
+
+      request.data = parsedData;
       next();
     } catch (err) {
       next(err);
