@@ -2,7 +2,7 @@ import express from "express";
 import { z } from "zod";
 import { SeasonModel } from "../../models/Season.js";
 import { instance } from "../../services/index.js";
-import { ZSeason } from "../../types/Season.js";
+import { ZSeason } from "../../types/battlePass/Season.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
 
 export class SeasonController {

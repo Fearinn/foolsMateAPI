@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ZId } from "./Id.js";
+import { ZId } from "../Id.js";
 
 export const ZRewardType = z.enum([
   "AVATAR_ITEM",

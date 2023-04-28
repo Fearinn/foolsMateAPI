@@ -5,7 +5,7 @@ import { RoleIconModel } from "../../models/RoleIcon.js";
 import { instance } from "../../services/index.js";
 import { TAggregateRequest } from "../../types/Aggregate.js";
 import { ZRarity } from "../../types/Rarity.js";
-import { ZRoleIcon } from "../../types/RoleIcon.js";
+import { ZRoleIcon } from "../../types/items/RoleIcon.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
 import { ZId } from "../../types/Id.js";
 

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ZBackground } from "../types/Background";
+import { ZBackground } from "../types/items/Background";
 import { z } from "zod";
 
 const imageSchema = {

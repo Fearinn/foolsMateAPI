@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ZAvatarItem } from "../types/AvatarItem";
+import { ZAvatarItem } from "../types/items/AvatarItem";
 import { z } from "zod";
 
 const avatarItemSchema = new mongoose.Schema<z.infer<typeof ZAvatarItem>>({

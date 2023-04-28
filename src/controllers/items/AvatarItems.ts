@@ -8,7 +8,7 @@ import {
   ZAvatarItem,
   ZAvatarItemGender,
   ZAvatarItemType,
-} from "../../types/AvatarItem.js";
+} from "../../types/items/AvatarItem.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";

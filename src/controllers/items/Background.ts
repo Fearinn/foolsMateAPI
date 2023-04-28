@@ -4,7 +4,7 @@ import { z } from "zod";
 import { BackgroundModel } from "../../models/Backgrounds.js";
 import { instance } from "../../services/index.js";
 import { TAggregateRequest } from "../../types/Aggregate.js";
-import { ZBackground } from "../../types/Background.js";
+import { ZBackground } from "../../types/items/Background.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
