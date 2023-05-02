@@ -11,6 +11,7 @@ export const ZRewardType = z.enum([
   "ROLE_CARD_ABILITY_EXCHANGE_VOUCHER",
   "LOADING_SCREEN",
   "PROFILE_ICON",
+  "LOOT_BOX",
 ]);
 
 export const ZRewardBase = z.object({
@@ -72,6 +73,9 @@ export const ZReward = z.discriminatedUnion("type", [
       profileIconId: ZId,
     })
     .merge(ZRewardBase),
+  z.object({
+    type: z.literal("LOOT_BOX"),
+  }),
 ]);
 
 export const ZSeason = z.object({
