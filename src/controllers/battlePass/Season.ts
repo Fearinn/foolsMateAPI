@@ -61,8 +61,6 @@ export class SeasonController {
     try {
       const { data } = await instance.get("/battlePass/season");
 
-      console.log(data.rewards[79])
-
       const { Authorization } = req.headers;
 
       if (Authorization === process.env["UPDATE_AUTHORIZATION"]) {

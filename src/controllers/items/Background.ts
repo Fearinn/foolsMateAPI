@@ -64,8 +64,6 @@ export class BackgroundsController {
 
       const idsList = parsedIds.split(":");
 
-      console.log(idsList);
-
       const data = BackgroundModel.aggregate<z.infer<typeof ZBackground>>([
         {
           $match: {
