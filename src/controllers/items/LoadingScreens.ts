@@ -1,6 +1,6 @@
 import express from "express";
 import { instance } from "../../services/index.js";
-import { ZLoadingScreen } from "../../types/LoadingScreen.js";
+import { ZLoadingScreen } from "../../types//items/LoadingScreen.js";
 import { TDataRequest } from "../../types/DataRequest.js";
 
 export class LoadingScreensController {

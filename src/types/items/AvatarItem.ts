@@ -17,7 +17,7 @@ export const ZAvatarItemType = z.enum([
   "BADGE",
 ]);
 
-export const ZAvatarItemGender = z.enum(["FEMALE", "MALE", ""]);
+export const ZAvatarItemGender = z.enum(["FEMALE", "MALE", "BOTH"]);
 
 export const ZAvatarItem = z.object({
   id: ZId,
