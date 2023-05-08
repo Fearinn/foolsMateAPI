@@ -36,7 +36,8 @@ const avatarItemSchema = new mongoose.Schema<z.infer<typeof ZAvatarItem>>({
   },
   gender: {
     type: mongoose.Schema.Types.String,
-    enum: ["FEMALE", "MALE"],
+    enum: ["FEMALE", "MALE", "NEUTRAL"],
+    default: "NEUTRAL",
   },
   costInGold: {
     type: mongoose.Schema.Types.Number,
