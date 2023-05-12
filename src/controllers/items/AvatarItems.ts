@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import { z } from "zod";
 import { AvatarItemModel } from "../../models/AvatarItems.js";
 import { instance } from "../../services/index.js";
-import { TAggregateRequest } from "../../types/Aggregate.js";
+import { AggregateRequest } from "../../types/Aggregate.js";
 import {
   ZAvatarItem,
   ZAvatarItemGender,
   ZAvatarItemType,
-} from "../../types/items/AvatarItem.js";
+} from "../../models/types/AvatarItem.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
@@ -17,7 +17,7 @@ const partialItem = ZAvatarItem.partial();
 
 export class AvatarItemsController {
   static getAll = async (
-    request: TAggregateRequest<z.infer<typeof partialItem>>,
+    request: AggregateRequest<z.infer<typeof partialItem>>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -62,7 +62,7 @@ export class AvatarItemsController {
   };
 
   static getByIds = async (
-    request: TAggregateRequest<z.infer<typeof partialItem>>,
+    request: AggregateRequest<z.infer<typeof partialItem>>,
     _: express.Response,
     next: express.NextFunction
   ) => {

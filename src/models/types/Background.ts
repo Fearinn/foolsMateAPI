@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { ZRarity } from "../Rarity.js";
-import { ZImage } from "../Image.js";
-import { ZId } from "../Id.js";
+import { ZId } from "../../types/Id.js";
+import { ZImage } from "../../types/Image.js";
+import { ZRarity } from "../../types/Rarity.js";
 
 export const ZBackground = z.object({
   id: ZId,

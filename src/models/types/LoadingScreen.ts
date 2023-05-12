@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { ZImage } from "../Image.js";
-import { ZId } from "../Id.js";
+import { ZId } from "../../types/Id.js";
+import { ZImage } from "../../types/Image.js";
 
 export const ZLoadingScreen = z.object({
   id: ZId,

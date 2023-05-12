@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 import express from "express";
 
-export type TAggregateResponse = {
+export type AggregateResponse = {
   totalData: unknown[];
   totalCount: {
     count: number;
   }[];
 }[];
 
-export type TAggregateRequest<DocType = unknown> = {
+export type AggregateRequest<DocType = unknown> = {
   data?: mongoose.Aggregate<DocType>;
 } & express.Request;

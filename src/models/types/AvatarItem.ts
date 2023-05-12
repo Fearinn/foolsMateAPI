@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { ZRarity } from "../Rarity.js";
-import { ZRegExp } from "../RegExp.js";
-import { ZId } from "../Id.js";
+import { ZRarity } from "../../types/Rarity.js";
+import { ZRegExp } from "../../types/RegExp.js";
+import { ZId } from "../../types/Id.js";
 
 export const ZAvatarItemType = z.enum([
   "HAIR",

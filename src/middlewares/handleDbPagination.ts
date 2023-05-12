@@ -1,11 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import { z } from "zod";
-import { TAggregateResponse, TAggregateRequest } from "../types/Aggregate.js";
+import { AggregateResponse, AggregateRequest } from "../types/Aggregate.js";
 import { paginateDb } from "../utils/paginateDb.js";
 
 export async function handleDbPagination(
-  req: TAggregateRequest<TAggregateResponse>,
+  req: AggregateRequest<AggregateResponse>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -13,7 +13,7 @@ export async function handleDbPagination(
     const data = req.data;
 
     const aggregateValidator = z.instanceof(
-      mongoose.Aggregate<TAggregateResponse>
+      mongoose.Aggregate<AggregateResponse>
     );
 
     if (!aggregateValidator.safeParse(data).success) {

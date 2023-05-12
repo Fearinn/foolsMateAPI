@@ -1,6 +1,6 @@
 import mongoose, { SchemaTypes } from "mongoose";
 import { z } from "zod";
-import { ZReward, ZRewardType, ZSeason } from "../types/battlePass/Season.js";
+import { ZReward, ZRewardType, ZSeason } from "./types/Season.js";
 
 const rewardSchema = new mongoose.Schema<z.infer<typeof ZReward>>({
   type: {

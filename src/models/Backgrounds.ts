@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { ZBackground } from "../types/items/Background";
 import { z } from "zod";
+import { ZBackground } from "./types/Background";
 
 const imageSchema = {
   url: mongoose.Schema.Types.String,

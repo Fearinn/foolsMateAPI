@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 import { z } from "zod";
 import { BackgroundModel } from "../../models/Backgrounds.js";
 import { instance } from "../../services/index.js";
-import { TAggregateRequest } from "../../types/Aggregate.js";
-import { ZBackground } from "../../types/items/Background.js";
+import { AggregateRequest } from "../../types/Aggregate.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
+import { ZBackground } from "../../models/types/Background.js";
 
 const partialBackground = ZBackground.partial();
 
 export class BackgroundsController {
   static getAll = async (
-    req: TAggregateRequest<z.infer<typeof partialBackground>>,
+    req: AggregateRequest<z.infer<typeof partialBackground>>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -53,7 +53,7 @@ export class BackgroundsController {
   };
 
   static getByIds = async (
-    req: TAggregateRequest<z.infer<typeof partialBackground>>,
+    req: AggregateRequest<z.infer<typeof partialBackground>>,
     _: express.Response,
     next: express.NextFunction
   ) => {

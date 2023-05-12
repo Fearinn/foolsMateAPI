@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 import { z } from "zod";
 import { RoleIconModel } from "../../models/RoleIcon.js";
 import { instance } from "../../services/index.js";
-import { TAggregateRequest } from "../../types/Aggregate.js";
+import { AggregateRequest } from "../../types/Aggregate.js";
 import { ZRarity } from "../../types/Rarity.js";
-import { ZRoleIcon } from "../../types/items/RoleIcon.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
 import { ZId } from "../../types/Id.js";
+import { ZRoleIcon } from "../../models/types/RoleIcon.js";
 
 const partialIcon = ZRoleIcon.partial();
 
 export class RoleIconsController {
   static getAll = async (
-    req: TAggregateRequest<z.infer<typeof partialIcon>>,
+    req: AggregateRequest<z.infer<typeof partialIcon>>,
     _: express.Response,
     next: express.NextFunction
   ) => {

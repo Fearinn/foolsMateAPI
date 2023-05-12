@@ -1,10 +1,10 @@
 import express from "express";
-import { LoadingScreensController } from "../controllers/items/LoadingScreens.js";
 import {
   AvatarItemsController,
+  BackgroundsController,
+  LoadingScreensController,
   RoleIconsController,
 } from "../controllers/items/index.js";
-import { BackgroundsController } from "../controllers/items/Background.js";
 
 export const itemsRouter = express.Router();
 

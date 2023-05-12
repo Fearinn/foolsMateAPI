@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { TAggregateResponse } from "../types/Aggregate";
+import { AggregateResponse } from "../types/Aggregate";
 
 export async function paginateDb(
-  data: mongoose.Aggregate<TAggregateResponse>,
+  data: mongoose.Aggregate<AggregateResponse>,
   page = 1,
   limit = 10
 ) {

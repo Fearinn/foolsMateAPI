@@ -7,7 +7,7 @@ export function generateDataRequest<T extends z.ZodTypeAny>(schema: T) {
   });
 }
 
-export type TDataRequest<T extends z.ZodTypeAny> = z.infer<
+export type DataRequest<T extends z.ZodTypeAny> = z.infer<
   ReturnType<typeof generateDataRequest<T>>
 > &
   express.Request;

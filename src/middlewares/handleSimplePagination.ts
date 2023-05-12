@@ -1,10 +1,10 @@
 import express from "express";
 import { z } from "zod";
-import { TDataRequest } from "../types/DataRequest.js";
+import { DataRequest } from "../types/DataRequest.js";
 import { paginateSimply } from "../utils/paginateSimply.js";
 
 export async function handleSimplePagination<T extends z.ZodTypeAny>(
-  req: TDataRequest<T>,
+  req: DataRequest<T>,
   res: express.Response,
   next: express.NextFunction
 ) {
