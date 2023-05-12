@@ -14,10 +14,14 @@ export const ZRewardType = z.enum([
   "LOOT_BOX",
 ]);
 
+export type RewardType = z.infer<typeof ZRewardType>;
+
 export const ZRewardBase = z.object({
   amount: z.number(),
   free: z.boolean(),
 });
+
+export type RewardBase = z.infer<typeof ZRewardBase>;
 
 export const ZReward = z.discriminatedUnion("type", [
   z
@@ -78,6 +82,8 @@ export const ZReward = z.discriminatedUnion("type", [
   }),
 ]);
 
+export type Reward = z.infer<typeof ZReward>;
+
 export const ZSeason = z.object({
   startTime: z.string(),
   number: z.number(),
@@ -90,3 +96,5 @@ export const ZSeason = z.object({
   iconUrl: z.string(),
   seasonBackgroundId: ZId,
 });
+
+export type Season = z.infer<typeof ZSeason>;

@@ -1,8 +1,7 @@
 import mongoose, { SchemaTypes } from "mongoose";
-import { z } from "zod";
-import { ZReward, ZRewardType, ZSeason } from "./types/Season.js";
+import { Reward, Season, ZRewardType } from "./types/Season.js";
 
-const rewardSchema = new mongoose.Schema<z.infer<typeof ZReward>>({
+const rewardSchema = new mongoose.Schema<Reward>({
   type: {
     type: SchemaTypes.String,
     required: true,
@@ -42,7 +41,7 @@ const rewardSchema = new mongoose.Schema<z.infer<typeof ZReward>>({
   },
 });
 
-const seasonSchema = new mongoose.Schema<z.infer<typeof ZSeason>>({
+const seasonSchema = new mongoose.Schema<Season>({
   startTime: { type: SchemaTypes.String, required: true },
   number: { type: SchemaTypes.Number, required: true },
   durationInDays: { type: SchemaTypes.Number, required: true },

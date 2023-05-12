@@ -2,22 +2,23 @@ import express from "express";
 import mongoose from "mongoose";
 import { z } from "zod";
 import { AvatarItemModel } from "../../models/AvatarItems.js";
-import { instance } from "../../services/index.js";
-import { AggregateRequest } from "../../types/Aggregate.js";
 import {
+  AvatarItem,
   ZAvatarItem,
   ZAvatarItemGender,
   ZAvatarItemType,
 } from "../../models/types/AvatarItem.js";
+import { instance } from "../../services/index.js";
+import { AggregateRequest } from "../../types/Aggregate.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
 
-const partialItem = ZAvatarItem.partial();
+type PartialItem = Partial<AvatarItem>;
 
 export class AvatarItemsController {
   static getAll = async (
-    request: AggregateRequest<z.infer<typeof partialItem>>,
+    request: AggregateRequest<PartialItem>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -35,7 +36,7 @@ export class AvatarItemsController {
         .parse(event)
         ?.replace(/\s+/gi, "_");
 
-      const filterBody: mongoose.FilterQuery<z.infer<typeof partialItem>> = {};
+      const filterBody: mongoose.FilterQuery<PartialItem> = {};
 
       if (gender) filterBody.gender = ZAvatarItemGender.parse(gender);
       if (rarity) filterBody.rarity = ZRarity.parse(rarity);
@@ -43,14 +44,14 @@ export class AvatarItemsController {
       if (parsedEvent)
         filterBody.event = { $regex: parsedEvent, $options: "im" };
 
-      const data = AvatarItemModel.aggregate<z.infer<typeof ZAvatarItem>>([
+      const data = AvatarItemModel.aggregate<AvatarItem>([
         {
           $match: filterBody,
         },
       ]);
 
       const parsedData = z
-        .instanceof(mongoose.Aggregate<z.infer<typeof partialItem>>)
+        .instanceof(mongoose.Aggregate<PartialItem>)
         .parse(data);
 
       request.data = parsedData;
@@ -62,7 +63,7 @@ export class AvatarItemsController {
   };
 
   static getByIds = async (
-    request: AggregateRequest<z.infer<typeof partialItem>>,
+    request: AggregateRequest<PartialItem>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -73,7 +74,7 @@ export class AvatarItemsController {
 
       const idsList = parsedIds.split(":");
 
-      const data = AvatarItemModel.aggregate<z.infer<typeof partialItem>>([
+      const data = AvatarItemModel.aggregate<PartialItem>([
         {
           $match: {
             id: {
@@ -84,7 +85,7 @@ export class AvatarItemsController {
       ]);
 
       const parsedData = z
-        .instanceof(mongoose.Aggregate<z.infer<typeof partialItem>>)
+        .instanceof(mongoose.Aggregate<PartialItem>)
         .parse(data);
 
       request.data = parsedData;

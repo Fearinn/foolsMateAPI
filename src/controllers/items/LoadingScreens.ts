@@ -1,11 +1,14 @@
 import express from "express";
-import { ZLoadingScreen } from "../../models/types/LoadingScreen.js";
+import {
+  LoadingScreen,
+  ZLoadingScreen,
+} from "../../models/types/LoadingScreen.js";
 import { instance } from "../../services/index.js";
 import { DataRequest } from "../../types/DataRequest.js";
 
 export class LoadingScreensController {
   static getAll = async (
-    request: DataRequest<typeof ZLoadingScreen>,
+    request: DataRequest<LoadingScreen>,
     _: express.Response,
     next: express.NextFunction
   ) => {

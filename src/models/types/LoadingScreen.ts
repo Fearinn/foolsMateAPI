@@ -8,3 +8,5 @@ export const ZLoadingScreen = z.object({
   imageWide: ZImage,
   imagePrimaryColor: z.string(),
 });
+
+export type LoadingScreen = z.infer<typeof ZLoadingScreen>;

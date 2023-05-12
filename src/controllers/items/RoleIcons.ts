@@ -2,18 +2,18 @@ import express from "express";
 import mongoose from "mongoose";
 import { z } from "zod";
 import { RoleIconModel } from "../../models/RoleIcon.js";
+import { RoleIcon, ZRoleIcon } from "../../models/types/RoleIcon.js";
 import { instance } from "../../services/index.js";
 import { AggregateRequest } from "../../types/Aggregate.js";
+import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
-import { ZId } from "../../types/Id.js";
-import { ZRoleIcon } from "../../models/types/RoleIcon.js";
 
-const partialIcon = ZRoleIcon.partial();
+type PartialIcon = Partial<RoleIcon>;
 
 export class RoleIconsController {
   static getAll = async (
-    req: AggregateRequest<z.infer<typeof partialIcon>>,
+    req: AggregateRequest<PartialIcon>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -24,21 +24,21 @@ export class RoleIconsController {
 
       const parsedRoleId = ZId.nullable().parse(roleId)?.replace(/\s+/g, "-");
 
-      const filterBody: mongoose.FilterQuery<z.infer<typeof partialIcon>> = {};
+      const filterBody: mongoose.FilterQuery<PartialIcon> = {};
 
       if (parsedRoleId) filterBody.roleId = parsedRoleId;
 
       if (parsedRarity)
         filterBody.rarity = { $regex: parsedRoleId, $options: "im" };
 
-      const data = RoleIconModel.aggregate<z.infer<typeof partialIcon>>([
+      const data = RoleIconModel.aggregate<RoleIcon>([
         {
           $match: filterBody,
         },
       ]);
 
       const parsedData = z
-        .instanceof(mongoose.Aggregate<z.infer<typeof partialIcon>>)
+        .instanceof(mongoose.Aggregate<PartialIcon>)
         .parse(data);
 
       req.data = parsedData;

@@ -1,9 +1,8 @@
 import mongoose, { SchemaTypes } from "mongoose";
-import { z } from "zod";
 import { ZRarity } from "../types/Rarity.js";
-import { ZRoleIcon } from "./types/RoleIcon.js";
+import { RoleIcon } from "./types/RoleIcon.js";
 
-const roleIconSchema = new mongoose.Schema<z.infer<typeof ZRoleIcon>>({
+const roleIconSchema = new mongoose.Schema<RoleIcon>({
   id: {
     type: SchemaTypes.String,
     unique: true,

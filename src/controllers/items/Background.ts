@@ -7,13 +7,13 @@ import { AggregateRequest } from "../../types/Aggregate.js";
 import { ZId } from "../../types/Id.js";
 import { ZRarity } from "../../types/Rarity.js";
 import { BaseError } from "../../utils/errors/BaseError.js";
-import { ZBackground } from "../../models/types/Background.js";
+import { Background, ZBackground } from "../../models/types/Background.js";
 
-const partialBackground = ZBackground.partial();
+type PartialBackground = Partial<Background>;
 
 export class BackgroundsController {
   static getAll = async (
-    req: AggregateRequest<z.infer<typeof partialBackground>>,
+    req: AggregateRequest<PartialBackground>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -26,22 +26,20 @@ export class BackgroundsController {
         .parse(event)
         ?.replace(/\s+/gi, "_");
 
-      const filterBody: mongoose.FilterQuery<
-        z.infer<typeof partialBackground>
-      > = {};
+      const filterBody: mongoose.FilterQuery<PartialBackground> = {};
 
       if (rarity) filterBody.rarity = ZRarity.parse(rarity);
       if (parsedEvent)
         filterBody.event = { $regex: parsedEvent, $options: "im" };
 
-      const data = BackgroundModel.aggregate<z.infer<typeof ZBackground>>([
+      const data = BackgroundModel.aggregate<Background>([
         {
           $match: filterBody,
         },
       ]);
 
       const parsedData = z
-        .instanceof(mongoose.Aggregate<z.infer<typeof ZBackground>>)
+        .instanceof(mongoose.Aggregate<Background>)
         .parse(data);
 
       req.data = parsedData;
@@ -53,7 +51,7 @@ export class BackgroundsController {
   };
 
   static getByIds = async (
-    req: AggregateRequest<z.infer<typeof partialBackground>>,
+    req: AggregateRequest<PartialBackground>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -64,7 +62,7 @@ export class BackgroundsController {
 
       const idsList = parsedIds.split(":");
 
-      const data = BackgroundModel.aggregate<z.infer<typeof ZBackground>>([
+      const data = BackgroundModel.aggregate<Background>([
         {
           $match: {
             id: {
@@ -75,7 +73,7 @@ export class BackgroundsController {
       ]);
 
       const parsedData = z
-        .instanceof(mongoose.Aggregate<z.infer<typeof ZBackground>>)
+        .instanceof(mongoose.Aggregate<Background>)
         .parse(data);
 
       req.data = parsedData;

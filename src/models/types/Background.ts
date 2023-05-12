@@ -16,3 +16,5 @@ export const ZBackground = z.object({
   backgroundColorNight: z.string(),
   event: z.string().optional(),
 });
+
+export type Background = z.infer<typeof ZBackground>;

@@ -1,52 +1,40 @@
-import mongoose from "mongoose";
-import { z } from "zod";
-import { ZAvatarItem } from "./types/AvatarItem";
+import mongoose, { SchemaTypes } from "mongoose";
+import { ZRarity } from "../types/Rarity.js";
+import { AvatarItem, ZAvatarItemType } from "./types/AvatarItem.js";
 
-const avatarItemSchema = new mongoose.Schema<z.infer<typeof ZAvatarItem>>({
+const avatarItemSchema = new mongoose.Schema<AvatarItem>({
   id: {
-    type: mongoose.Schema.Types.String,
+    type: SchemaTypes.String,
     required: true,
     index: true,
   },
   rarity: {
-    type: mongoose.Schema.Types.String,
-    enum: ["COMMON", "RARE", "EPIC", "LEGENDARY"],
+    type: SchemaTypes.String,
+    enum: ZRarity._def.values,
     required: true,
   },
   imageUrl: {
-    type: mongoose.Schema.Types.String,
+    type: SchemaTypes.String,
     required: true,
   },
   type: {
-    type: mongoose.Schema.Types.String,
-    enum: [
-      "HAIR",
-      "FRONT",
-      "SHIRT",
-      "HAT",
-      "GLASSES",
-      "BACK",
-      "MASK",
-      "GRAVESTONE",
-      "MOUTH",
-      "EYES",
-      "BADGE",
-    ],
+    type: SchemaTypes.String,
+    enum: ZAvatarItemType._def.values,
     required: true,
   },
   gender: {
-    type: mongoose.Schema.Types.String,
-    enum: ["FEMALE", "MALE", "NEUTRAL"],
+    type: SchemaTypes.String,
+    enum: ZAvatarItemType._def.values,
     default: "NEUTRAL",
   },
   costInGold: {
-    type: mongoose.Schema.Types.Number,
+    type: SchemaTypes.Number,
   },
   costInRoses: {
-    type: mongoose.Schema.Types.Number,
+    type: SchemaTypes.Number,
   },
   event: {
-    type: mongoose.Schema.Types.String,
+    type: SchemaTypes.String,
   },
 });
 

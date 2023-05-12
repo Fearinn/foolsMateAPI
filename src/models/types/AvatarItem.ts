@@ -17,7 +17,11 @@ export const ZAvatarItemType = z.enum([
   "BADGE",
 ]);
 
+export type AvatarItemType = z.infer<typeof ZAvatarItemType>;
+
 export const ZAvatarItemGender = z.enum(["FEMALE", "MALE", "NEUTRAL"]);
+
+export type AvatarItemGender = z.infer<typeof ZAvatarItemGender>;
 
 export const ZAvatarItem = z.object({
   id: ZId,
@@ -29,3 +33,5 @@ export const ZAvatarItem = z.object({
   gender: ZAvatarItemGender.optional(),
   event: ZRegExp.optional(),
 });
+
+export type AvatarItem = z.infer<typeof ZAvatarItem>;

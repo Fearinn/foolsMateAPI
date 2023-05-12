@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { z } from "zod";
-import { ZBackground } from "./types/Background";
+import { Background } from "./types/Background";
 
 const imageSchema = {
   url: mongoose.Schema.Types.String,
@@ -8,7 +7,7 @@ const imageSchema = {
   height: mongoose.Schema.Types.Number,
 };
 
-const backgroundSchema = new mongoose.Schema<z.infer<typeof ZBackground>>({
+const backgroundSchema = new mongoose.Schema<Background>({
   id: {
     type: mongoose.Schema.Types.String,
     index: true,

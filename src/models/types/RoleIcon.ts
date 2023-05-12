@@ -11,3 +11,5 @@ export const ZRoleIcon = z.object({
   roleId: ZRegExp,
   event: ZRegExp.optional(),
 });
+
+export type RoleIcon = z.infer<typeof ZRoleIcon>;
