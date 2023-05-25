@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { ZId } from "../../types/Id.js";
+import { ZInteger } from "../../types/Integer.js";
 
 export const ZRewardType = z.enum([
   "AVATAR_ITEM",
@@ -86,12 +87,12 @@ export type Reward = z.infer<typeof ZReward>;
 
 export const ZSeason = z.object({
   startTime: z.string(),
-  number: z.number(),
-  durationInDays: z.number(),
-  goldPrice: z.number(),
-  goldPricePerReward: z.number(),
-  gemPricePerReward: z.number(),
-  xpPerReward: z.number(),
+  number: ZInteger,
+  durationInDays: ZInteger,
+  goldPrice: ZInteger,
+  goldPricePerReward: ZInteger,
+  gemPricePerReward: ZInteger,
+  xpPerReward: ZInteger,
   rewards: ZReward.array(),
   iconUrl: z.string(),
   seasonBackgroundId: ZId,

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { ZRarity } from "../../types/Rarity.js";
 import { ZRegExp } from "../../types/RegExp.js";
 import { ZId } from "../../types/Id.js";
+import { ZInteger } from "../../types/Integer.js";
 
 export const ZAvatarItemType = z.enum([
   "HAIR",
@@ -26,8 +27,8 @@ export type AvatarItemGender = z.infer<typeof ZAvatarItemGender>;
 export const ZAvatarItem = z.object({
   id: ZId,
   rarity: ZRarity,
-  costInGold: z.number().optional(),
-  costInRoses: z.number().optional(),
+  costInGold: ZInteger.optional(),
+  costInRoses: ZInteger.optional(),
   imageUrl: z.string(),
   type: ZAvatarItemType,
   gender: ZAvatarItemGender.optional(),
