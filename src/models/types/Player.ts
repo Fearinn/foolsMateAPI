@@ -30,19 +30,38 @@ const ZGameStats = z.object({
   totalPlayTimeInMinutes: ZInteger,
 });
 
-export const ZPlayer = z.object({
-  id: z.string(),
-  username: z.string(),
-  level: ZInteger,
-  creationTime: z.string().optional(),
-  clanId: z.string().optional(),
-  rankedSeasonSkill: ZInteger.optional(),
-  rankedSeasonMaxSkill: ZInteger.optional(),
-  rankedSeasonBestRank: ZInteger.optional(),
-  rankedSeasonPlayedCount: ZInteger.optional(),
-  equippedAvatar: ZAvatar,
-  avatars: ZAvatar.array().optional(),
-  gameStats: ZGameStats.optional(),
-});
+export const ZPlayer = z
+  .object({
+    id: z.string(),
+    username: z.string(),
+    level: ZInteger.optional(),
+    creationTime: z.string().optional(),
+    clanId: z.string().optional(),
+    rankedSeasonSkill: ZInteger.optional(),
+    rankedSeasonMaxSkill: ZInteger.optional(),
+    rankedSeasonBestRank: ZInteger.optional(),
+    rankedSeasonPlayedCount: ZInteger.optional(),
+    equippedAvatar: ZAvatar,
+    avatars: ZAvatar.array().optional(),
+    gameStats: ZGameStats.optional(),
+  })
+  .transform((player) => {
+    if (player.level === -1) player.level = 0;
+
+    if (player.rankedSeasonBestRank === -1)
+      player.rankedSeasonBestRank = undefined;
+
+    if (player.rankedSeasonSkill === -1) player.rankedSeasonSkill = undefined;
+
+    if (player.rankedSeasonPlayedCount === -1)
+      player.rankedSeasonPlayedCount = undefined;
+
+    if (player.rankedSeasonMaxSkill === -1)
+      player.rankedSeasonMaxSkill = undefined;
+
+    if (player.gameStats?.totalWinCount === -1) player.gameStats = undefined;
+
+    return player;
+  });
 
 export type Player = z.infer<typeof ZPlayer>;
