@@ -6,7 +6,7 @@ import { playersRouter } from "./players.js";
 const basicRoute = express.Router();
 
 basicRoute.get("/", (_: express.Request, response: express.Response) => {
-  response.json("Welcome to Wolvesville Wiki!");
+  response.json("Welcome to Fool's Mate, the Wolvesville Online Tracker!");
 });
 
 export function routes(app: express.Application) {

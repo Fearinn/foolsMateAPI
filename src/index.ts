@@ -1,12 +1,12 @@
-import express from "express";
-import { routes } from "./routes/index.js";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import { handleError } from "./middlewares/handleError.js";
-import { handlePage404 } from "./middlewares/handlePage404.js";
+import express from "express";
 import { db } from "./config/dbConnection.js";
 import { handleDbPagination } from "./middlewares/handleDbPagination.js";
+import { handleError } from "./middlewares/handleError.js";
+import { handlePage404 } from "./middlewares/handlePage404.js";
 import { handleSimplePagination } from "./middlewares/handleSimplePagination.js";
+import { routes } from "./routes/index.js";
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ db.once("open", () => {
 
 app.use(
   cors({
-    origin: ["https://wolvesville-wiki.vercel.app"],
+    origin: ["https://fools-mate.vercel.app"],
     optionsSuccessStatus: 200,
   })
 );
