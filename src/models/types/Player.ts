@@ -35,6 +35,7 @@ export const ZPlayer = z
     id: z.string(),
     username: z.string(),
     level: ZInteger.optional(),
+    status: ZStatus,
     creationTime: z.string().optional(),
     clanId: z.string().optional(),
     rankedSeasonSkill: ZInteger.optional(),
