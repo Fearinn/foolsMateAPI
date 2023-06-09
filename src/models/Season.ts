@@ -1,45 +1,5 @@
 import mongoose, { SchemaTypes } from "mongoose";
-import { Reward, Season, ZRewardType } from "./types/Season.js";
-
-const rewardSchema = new mongoose.Schema<Reward>({
-  type: {
-    type: SchemaTypes.String,
-    required: true,
-    enum: ZRewardType._def.values,
-  },
-  avatarItemId: {
-    type: SchemaTypes.String,
-  },
-  avatarItemIdMale: {
-    type: SchemaTypes.String,
-  },
-  avatarItemIdFemale: {
-    type: SchemaTypes.String,
-  },
-  roleIconId: {
-    type: SchemaTypes.String,
-  },
-  rosePackageId: {
-    type: SchemaTypes.String,
-  },
-  emojiId: {
-    type: SchemaTypes.String,
-  },
-  loadingScreenId: {
-    type: SchemaTypes.String,
-  },
-  profileIconId: {
-    type: SchemaTypes.String,
-  },
-  amount: {
-    type: SchemaTypes.Number,
-    required: true,
-  },
-  free: {
-    type: SchemaTypes.Boolean,
-    required: true,
-  },
-});
+import { Season } from "./types/Season.js";
 
 const seasonSchema = new mongoose.Schema<Season>({
   startTime: { type: SchemaTypes.String, required: true },
@@ -49,7 +9,7 @@ const seasonSchema = new mongoose.Schema<Season>({
   goldPricePerReward: { type: SchemaTypes.Number, required: true },
   gemPricePerReward: { type: SchemaTypes.Number, required: true },
   xpPerReward: { type: SchemaTypes.Number, required: true },
-  rewards: { type: [rewardSchema], required: true },
+  // rewards: { type: [rewardSchema], required: true },
   iconUrl: { type: SchemaTypes.String, required: true },
   seasonBackgroundId: { type: SchemaTypes.String, required: true },
 });
