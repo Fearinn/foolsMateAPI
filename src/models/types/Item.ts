@@ -21,8 +21,8 @@ export const ZItem = ZBaseItem.transform((item) => {
   if (ZItemWithImageUrl.safeParse(item).success) {
     item.image = {
       url: ZItemWithImageUrl.parse(item).imageUrl,
-      width: 400,
-      height: 400,
+      width: 100,
+      height: 50
     };
 
     item.imageUrl = undefined;
@@ -31,8 +31,8 @@ export const ZItem = ZBaseItem.transform((item) => {
   if (ZItemWithPreview.safeParse(item).success) {
     item.image = {
       url: ZItemWithPreview.parse(item).urlPreview,
-      width: 400,
-      height: 400,
+      width: 100,
+      height: 50
     };
 
     item.urlPreview = undefined;
