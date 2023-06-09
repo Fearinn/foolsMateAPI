@@ -6,7 +6,7 @@ export const ZRewardBase = z.object({
   amount: z.number(),
   free: z.boolean(),
   itemId: ZId.optional(),
-  item: ZItem,
+  item: ZItem.nullish(),
 });
 
 export type RewardBase = z.infer<typeof ZRewardBase>;
