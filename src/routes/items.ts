@@ -2,6 +2,7 @@ import express from "express";
 import {
   AvatarItemsController,
   BackgroundsController,
+  ItemController,
   LoadingScreensController,
   RoleIconsController,
 } from "../controllers/items/index.js";
@@ -9,6 +10,7 @@ import {
 export const itemsRouter = express.Router();
 
 itemsRouter
+  .post("/items/update", ItemController.updateAll)
   .get("/items/avatarItems", AvatarItemsController.getAll)
   .get("/items/avatarItems/ids", AvatarItemsController.getByIds)
   .post("/items/avatarItems/update", AvatarItemsController.updateAll)
