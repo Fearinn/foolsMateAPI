@@ -2,11 +2,11 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
 import { db } from "./config/dbConnection.js";
-import { handleDbPagination } from "./middlewares/handleDbPagination.js";
-import { handleError } from "./middlewares/handleError.js";
-import { handlePage404 } from "./middlewares/handlePage404.js";
-import { handleSimplePagination } from "./middlewares/handleSimplePagination.js";
-import { routes } from "./routes/index.js";
+import { handleDbPagination } from "./common/middlewares/handleDbPagination.js";
+import { handleError } from "./common/middlewares/handleError.js";
+import { handlePage404 } from "./common/middlewares/handlePage404.js";
+import { handleSimplePagination } from "./common/middlewares/handleSimplePagination.js";
+import { routes } from "./routes.js";
 
 dotenv.config();
 
