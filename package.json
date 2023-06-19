@@ -7,8 +7,8 @@
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc",
-    "start": "node build/index.js",
-    "dev": "nodemon build/index.js"
+    "start": "node build/app.js",
+    "dev": "nodemon build/app.js"
   },
   "author": "fearinn",
   "license": "ISC",
