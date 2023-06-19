@@ -93,9 +93,9 @@ export class BackgroundsController {
     try {
       const { data } = await instance.get("/items/backgrounds");
 
-      const { Authorization } = req.headers;
+      const { authorization } = req.headers;
 
-      if (Authorization === process.env["UPDATE_AUTHORIZATION"]) {
+      if (authorization !== process.env["UPDATE_AUTHORIZATION"]) {
         throw new BaseError("Access unauthorized", 401);
       }
 
