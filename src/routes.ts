@@ -2,6 +2,7 @@ import express from "express";
 import { battlePassRouter } from "./battlePass/routes/index.js";
 import { itemsRouter } from "./items/routes/index.js";
 import { playersRouter } from "./players/routes/index.js";
+import { rolesRouter } from "./roles/routes/index.js";
 
 const basicRoute = express.Router();
 
@@ -15,6 +16,7 @@ export function routes(app: express.Application) {
     basicRoute,
     itemsRouter,
     battlePassRouter,
-    playersRouter
+    playersRouter,
+    rolesRouter
   );
 }
