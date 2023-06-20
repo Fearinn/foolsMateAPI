@@ -5,19 +5,26 @@ const RoleSchema = new mongoose.Schema<Role>({
   id: SchemaTypes.String,
   team: {
     type: SchemaTypes.String,
-    enum: ["VILLAGER", "WEREWOLF", "SOLO"]
+    enum: ["VILLAGER", "WEREWOLF", "SOLO"],
+    required: true,
   },
   aura: {
     type: SchemaTypes.String,
     enum: ZAura._def.values,
+    required: true,
   },
-  name: SchemaTypes.String,
-  description: SchemaTypes.String,
+  name: { type: SchemaTypes.String, required: true },
+  description: { type: SchemaTypes.String, required: true },
   image: {
-    url: SchemaTypes.String,
-    width: SchemaTypes.Number,
-    height: SchemaTypes.Number,
+    type: {
+      url: SchemaTypes.String,
+      width: SchemaTypes.Number,
+      height: SchemaTypes.Number,
+    },
+    required: true,
   },
+  possibleRoles: [SchemaTypes.String],
+  advancedRoles: [SchemaTypes.String],
 });
 
 export const RoleModel = mongoose.model("role", RoleSchema);

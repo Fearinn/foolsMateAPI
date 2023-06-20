@@ -5,7 +5,8 @@ import { instance } from "../../common/services/index.js";
 import { AggregateRequest } from "../../common/types/Aggregate.js";
 import { BaseError } from "../../common/utils/errors/BaseError.js";
 import { RoleModel } from "../models/Role.js";
-import { Role, ZAura, ZRole } from "../types/Role.js";
+import { Role, ZAura } from "../types/Role.js";
+import { RoleResponse, ZRoleResponse } from "../types/RoleResponse.js";
 
 type PartialRole = Partial<Role>;
 
@@ -16,7 +17,14 @@ export class RolesController {
     next: express.NextFunction
   ) => {
     try {
-      const { id = null, name = null, team = null, aura = null } = req.query;
+      const {
+        id = null,
+        name = null,
+        team = null,
+        aura = null,
+        advancedRoles = null,
+        possibleRoles = null,
+      } = req.query;
 
       const parsedId = z.string().nullable().parse(id);
 
@@ -25,6 +33,14 @@ export class RolesController {
       const parsedTeam = z.string().nullable().parse(team)?.toUpperCase();
 
       const parsedAura = ZAura.nullable().parse(aura)?.toUpperCase();
+
+      const parsedAdvancedRoles = z
+        .string()
+        .nullable()
+        .parse(advancedRoles)
+        ?.split(":");
+
+      const parsedPossibleRoles = z.string().nullable().parse(possibleRoles)?.split(":");
 
       const filterBody: mongoose.FilterQuery<PartialRole> = {};
 
@@ -35,6 +51,12 @@ export class RolesController {
       if (parsedId) filterBody.id = { $regex: parsedId, $options: "im" };
 
       if (parsedName) filterBody.name = { $regex: parsedName, $options: "im" };
+
+      if (parsedAdvancedRoles)
+        filterBody.advancedRoles = { $all: parsedAdvancedRoles };
+
+      if (parsedPossibleRoles)
+        filterBody.possibleRoles = { $all: parsedPossibleRoles };
 
       const data = RoleModel.aggregate<Role>([
         {
@@ -59,17 +81,39 @@ export class RolesController {
     next: express.NextFunction
   ) => {
     try {
-      const { data } = await instance.get<{ roles: Role[] }>("/roles");
-
       const { authorization } = req.headers;
 
       if (authorization !== process.env["UPDATE_AUTHORIZATION"]) {
         throw new BaseError("Access unauthorized", 401);
       }
 
-      const parsedData = ZRole.array().parse(data.roles);
+      const { data } = await instance.get<RoleResponse>("/roles");
 
-      const dataInsertion = parsedData.map((item) => {
+      const parsedData = ZRoleResponse.parse(data);
+
+      parsedData.roles = parsedData.roles.map((role) => {
+        if (
+          role.id.split("-").includes("random") &&
+          parsedData.randomRolesMapping[role.id]
+        ) {
+          role.possibleRoles = parsedData.randomRolesMapping[role.id];
+          role.description = role.description.replace(
+            /\{0\}/g,
+            z.coerce.string().parse(role.possibleRoles)
+          );
+        }
+        return role;
+      });
+
+      parsedData.roles = parsedData.roles.map((role) => {
+        if (parsedData.advancedRolesMapping[role.id]) {
+          role.advancedRoles = parsedData.advancedRolesMapping[role.id];
+        }
+
+        return role;
+      });
+
+      const dataInsertion = parsedData.roles.map((item) => {
         return {
           updateOne: {
             filter: { id: item.id },

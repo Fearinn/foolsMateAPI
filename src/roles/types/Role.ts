@@ -11,9 +11,12 @@ export const ZRole = z
     name: z.string(),
     description: z.string(),
     image: ZImage,
+    advancedRoles: z.string().array().optional(),
+    possibleRoles: z.string().array().optional(),
   })
   .transform((role) => {
-    if (role.team !== "VILLAGER" && role.team !== "WEREWOLF") role.team = "SOLO";
+    if (role.team !== "VILLAGER" && role.team !== "WEREWOLF")
+      role.team = "SOLO";
     return role;
   });
 
