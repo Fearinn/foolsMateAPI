@@ -40,7 +40,11 @@ export class RolesController {
         .parse(advancedRoles)
         ?.split(":");
 
-      const parsedPossibleRoles = z.string().nullable().parse(possibleRoles)?.split(":");
+      const parsedPossibleRoles = z
+        .string()
+        .nullable()
+        .parse(possibleRoles)
+        ?.split(":");
 
       const filterBody: mongoose.FilterQuery<PartialRole> = {};
 
@@ -99,7 +103,7 @@ export class RolesController {
           role.possibleRoles = parsedData.randomRolesMapping[role.id];
           role.description = role.description.replace(
             /\{0\}/g,
-            z.coerce.string().parse(role.possibleRoles)
+            z.coerce.string().parse(role.possibleRoles).replaceAll(",", ", ")
           );
         }
         return role;
