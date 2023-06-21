@@ -5,7 +5,7 @@ const RoleSchema = new mongoose.Schema<Role>({
   id: SchemaTypes.String,
   team: {
     type: SchemaTypes.String,
-    enum: ["VILLAGER", "WEREWOLF", "SOLO"],
+    enum: ["VILLAGER", "WEREWOLF", "SOLO", "RANDOM"],
     required: true,
   },
   aura: {
