@@ -50,7 +50,7 @@ export class RolesController {
 
       if (parsedTeam) filterBody.team = parsedTeam;
 
-      if (parsedAura) filterBody.team = parsedAura;
+      if (parsedAura) filterBody.aura = parsedAura;
 
       if (parsedId) filterBody.id = { $regex: parsedId, $options: "im" };
 
