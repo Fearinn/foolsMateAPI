@@ -1,17 +1,19 @@
 import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
-import { db } from "./config/dbConnection.js";
 import { handleDbPagination } from "./common/middlewares/handleDbPagination.js";
 import { handleError } from "./common/middlewares/handleError.js";
 import { handlePage404 } from "./common/middlewares/handlePage404.js";
 import { handleSimplePagination } from "./common/middlewares/handleSimplePagination.js";
-import { routes } from "./routes.js";
 import { trimQuery } from "./common/middlewares/trim.js";
+import { db } from "./config/dbConnection.js";
+import { routes } from "./routes.js";
 
 dotenv.config();
 
 const app = express();
+
+const prod = process.env.NODE_ENV === "production";
 
 db.on("error", console.log.bind(console, "Connection error"));
 db.once("open", () => {
@@ -19,10 +21,14 @@ db.once("open", () => {
 });
 
 app.use(
-  cors({
-    origin: ["https://fools-mate.vercel.app"],
-    optionsSuccessStatus: 200,
-  })
+  cors(
+    prod
+      ? {
+          origin: ["https://fools-mate.vercel.app"],
+          optionsSuccessStatus: 200,
+        }
+      : undefined
+  )
 );
 
 app.use(trimQuery);
