@@ -7,6 +7,7 @@ import { handleError } from "./common/middlewares/handleError.js";
 import { handlePage404 } from "./common/middlewares/handlePage404.js";
 import { handleSimplePagination } from "./common/middlewares/handleSimplePagination.js";
 import { routes } from "./routes.js";
+import { trimQuery } from "./common/middlewares/trim.js";
 
 dotenv.config();
 
@@ -23,6 +24,8 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
+app.use(trimQuery);
 
 const port = process.env.PORT || 3000;
 
