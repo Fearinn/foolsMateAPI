@@ -15,8 +15,15 @@ export const ZRole = z
     possibleRoles: z.string().array().optional(),
   })
   .transform((role) => {
-    if (role.team !== "VILLAGER" && role.team !== "WEREWOLF" && role.team !== "RANDOM")
+    if (
+      role.team !== "VILLAGER" &&
+      role.team !== "WEREWOLF" &&
+      !role.team.includes("RANDOM")
+    )
       role.team = "SOLO";
+
+    if (role.team.includes("RANDOM")) role.team = "RANDOM";
+
     return role;
   });
 
