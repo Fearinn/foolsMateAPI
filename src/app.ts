@@ -24,7 +24,7 @@ app.use(
   cors(
     prod
       ? {
-          origin: ["https://fools-mate.vercel.app"],
+          origin: ["https://foolsmate.vercel.app"],
           optionsSuccessStatus: 200,
         }
       : undefined
