@@ -24,6 +24,7 @@ export class AvatarItemsController {
   ) => {
     try {
       const {
+        id = null,
         gender = null,
         rarity = null,
         type = null,
@@ -38,6 +39,7 @@ export class AvatarItemsController {
 
       const filterBody: mongoose.FilterQuery<PartialItem> = {};
 
+      if (id) filterBody.id = ZId.parse(id);
       if (gender) filterBody.gender = ZAvatarItemGender.parse(gender);
       if (rarity) filterBody.rarity = ZRarity.parse(rarity);
       if (type) filterBody.type = ZAvatarItemType.parse(type);
