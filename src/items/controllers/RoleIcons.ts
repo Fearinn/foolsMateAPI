@@ -7,6 +7,7 @@ import { ZRarity } from "../../common/types/Rarity.js";
 import { BaseError } from "../../common/utils/errors/BaseError.js";
 import { RoleIconModel } from "../models/RoleIcon.js";
 import { RoleIcon, ZRoleIcon } from "../types/RoleIcon.js";
+import { ZId } from "../../common/types/Id.js";
 
 type PartialIcon = Partial<RoleIcon>;
 
@@ -17,7 +18,14 @@ export class RoleIconsController {
     next: express.NextFunction
   ) => {
     try {
-      const { rarity = null, roleId = null, event = null } = req.query;
+      const {
+        id = null,
+        rarity = null,
+        roleId = null,
+        event = null,
+      } = req.query;
+
+      const parsedId = ZId.nullable().parse(id);
 
       const parsedRarity = ZRarity.nullable().parse(rarity);
 
@@ -34,6 +42,8 @@ export class RoleIconsController {
         ?.replace(/\s+/g, "_");
 
       const filterBody: mongoose.FilterQuery<PartialIcon> = {};
+
+      if (parsedId) filterBody.id = parsedId;
 
       if (parsedRoleId)
         filterBody.roleId = { $regex: parsedRoleId, $options: "im" };
