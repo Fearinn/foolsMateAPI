@@ -1,6 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import { z } from "zod";
+import { instance } from "../../common/services/index.js";
+import { AggregateRequest } from "../../common/types/Aggregate.js";
+import { ZRarity } from "../../common/types/Rarity.js";
+import { BaseError } from "../../common/utils/errors/BaseError.js";
 import { AvatarItemModel } from "../models/AvatarItems.js";
 import {
   AvatarItem,
@@ -8,11 +12,6 @@ import {
   ZAvatarItemGender,
   ZAvatarItemType,
 } from "../types/AvatarItem.js";
-import { instance } from "../../common/services/index.js";
-import { AggregateRequest } from "../../common/types/Aggregate.js";
-import { ZId } from "../../common/types/Id.js";
-import { ZRarity } from "../../common/types/Rarity.js";
-import { BaseError } from "../../common/utils/errors/BaseError.js";
 
 type PartialItem = Partial<AvatarItem>;
 
@@ -34,6 +33,11 @@ export class AvatarItemsController {
 
       const parsedIdList = z.string().nullable().parse(idList)?.split(":");
 
+      const parsedId = z.string().nullable().parse(id);
+      const parsedGender = ZAvatarItemGender.nullable().parse(gender);
+      const parsedRarity = ZRarity.nullable().parse(rarity);
+      const parsedType = ZAvatarItemType.nullable().parse(type);
+
       const parsedEvent = z
         .string()
         .nullable()
@@ -42,12 +46,12 @@ export class AvatarItemsController {
 
       const filterBody: mongoose.FilterQuery<PartialItem> = {};
 
-      if (id && !parsedIdList) filterBody.id = ZId.parse(id);
+      if (id && !parsedIdList) filterBody.id = parsedId;
       if (parsedIdList) filterBody.id = { $in: parsedIdList };
 
-      if (gender) filterBody.gender = ZAvatarItemGender.parse(gender);
-      if (rarity) filterBody.rarity = ZRarity.parse(rarity);
-      if (type) filterBody.type = ZAvatarItemType.parse(type);
+      if (gender) filterBody.gender = parsedGender;
+      if (rarity) filterBody.rarity = parsedRarity;
+      if (type) filterBody.type = parsedType;
 
       if (parsedEvent)
         filterBody.event = { $regex: parsedEvent, $options: "im" };

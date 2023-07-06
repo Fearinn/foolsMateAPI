@@ -7,7 +7,6 @@ import { ZRarity } from "../../common/types/Rarity.js";
 import { BaseError } from "../../common/utils/errors/BaseError.js";
 import { RoleIconModel } from "../models/RoleIcon.js";
 import { RoleIcon, ZRoleIcon } from "../types/RoleIcon.js";
-import { ZId } from "../../common/types/Id.js";
 
 type PartialIcon = Partial<RoleIcon>;
 
@@ -26,7 +25,7 @@ export class RoleIconsController {
         idList = null,
       } = req.query;
 
-      const parsedId = ZId.nullable().parse(id);
+      const parsedId = z.string().nullable().parse(id);
 
       const parsedIdList = z.string().nullable().parse(idList)?.split(":");
 
