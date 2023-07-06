@@ -23,9 +23,12 @@ export class RoleIconsController {
         rarity = null,
         roleId = null,
         event = null,
+        idList = null,
       } = req.query;
 
       const parsedId = ZId.nullable().parse(id);
+
+      const parsedIdList = z.string().nullable().parse(idList)?.split(":");
 
       const parsedRarity = ZRarity.nullable().parse(rarity);
 
@@ -43,7 +46,9 @@ export class RoleIconsController {
 
       const filterBody: mongoose.FilterQuery<PartialIcon> = {};
 
-      if (parsedId) filterBody.id = parsedId;
+      if (parsedId && !parsedIdList) filterBody.id = parsedId;
+
+      if (parsedIdList) filterBody.id = { $in: parsedIdList };
 
       if (parsedRoleId)
         filterBody.roleId = { $regex: parsedRoleId, $options: "im" };
