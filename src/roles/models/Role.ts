@@ -2,7 +2,7 @@ import mongoose, { SchemaTypes } from "mongoose";
 import { ZAura, Role } from "../types/Role.js";
 
 const RoleSchema = new mongoose.Schema<Role>({
-  id: SchemaTypes.String,
+  id: { type: SchemaTypes.String, required: true, index: true, unique: true },
   team: {
     type: SchemaTypes.String,
     enum: ["VILLAGER", "WEREWOLF", "SOLO", "RANDOM"],

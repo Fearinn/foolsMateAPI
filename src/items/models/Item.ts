@@ -5,6 +5,7 @@ const itemSchema = new mongoose.Schema<Item>({
   id: {
     type: SchemaTypes.String,
     required: true,
+    unique: true,
     index: true,
   },
   image: {

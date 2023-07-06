@@ -5,8 +5,9 @@ import { ZRarity } from "../../common/types/Rarity.js";
 const roleIconSchema = new mongoose.Schema<RoleIcon>({
   id: {
     type: SchemaTypes.String,
-    unique: true,
     required: true,
+    index: true,
+    unique: true,
   },
   rarity: {
     type: SchemaTypes.String,

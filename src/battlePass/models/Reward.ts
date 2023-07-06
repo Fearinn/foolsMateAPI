@@ -20,6 +20,7 @@ const rewardSchema = new mongoose.Schema<Reward>(
   {
     itemId: {
       type: SchemaTypes.String,
+      index: true,
     },
     type: {
       type: SchemaTypes.String,

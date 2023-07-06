@@ -7,6 +7,7 @@ const avatarItemSchema = new mongoose.Schema<AvatarItem>({
     type: SchemaTypes.String,
     required: true,
     index: true,
+    unique: true,
   },
   rarity: {
     type: SchemaTypes.String,

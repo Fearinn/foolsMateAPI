@@ -10,8 +10,9 @@ const imageSchema = {
 const backgroundSchema = new mongoose.Schema<Background>({
   id: {
     type: mongoose.Schema.Types.String,
-    index: true,
     required: true,
+    index: true,
+    unique: true,
   },
   rarity: {
     type: mongoose.Schema.Types.String,
