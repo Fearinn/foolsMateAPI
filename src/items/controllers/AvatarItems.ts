@@ -18,7 +18,7 @@ type PartialItem = Partial<AvatarItem>;
 
 export class AvatarItemsController {
   static getAll = async (
-    request: AggregateRequest<PartialItem>,
+    req: AggregateRequest<PartialItem>,
     _: express.Response,
     next: express.NextFunction
   ) => {
@@ -29,7 +29,10 @@ export class AvatarItemsController {
         rarity = null,
         type = null,
         event = null,
-      } = request.query;
+        idList = null,
+      } = req.query;
+
+      const parsedIdList = z.string().nullable().parse(idList)?.split(":");
 
       const parsedEvent = z
         .string()
@@ -39,10 +42,13 @@ export class AvatarItemsController {
 
       const filterBody: mongoose.FilterQuery<PartialItem> = {};
 
-      if (id) filterBody.id = ZId.parse(id);
+      if (id && !parsedIdList) filterBody.id = ZId.parse(id);
+      if (parsedIdList) filterBody.id = { $in: parsedIdList };
+
       if (gender) filterBody.gender = ZAvatarItemGender.parse(gender);
       if (rarity) filterBody.rarity = ZRarity.parse(rarity);
       if (type) filterBody.type = ZAvatarItemType.parse(type);
+
       if (parsedEvent)
         filterBody.event = { $regex: parsedEvent, $options: "im" };
 
@@ -56,41 +62,8 @@ export class AvatarItemsController {
         .instanceof(mongoose.Aggregate<PartialItem>)
         .parse(data);
 
-      request.data = parsedData;
+      req.data = parsedData;
 
-      next();
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  static getByIds = async (
-    request: AggregateRequest<PartialItem>,
-    _: express.Response,
-    next: express.NextFunction
-  ) => {
-    try {
-      const { ids = "" } = request.query;
-
-      const parsedIds = ZId.parse(ids);
-
-      const idsList = parsedIds.split(":");
-
-      const data = AvatarItemModel.aggregate<PartialItem>([
-        {
-          $match: {
-            id: {
-              $in: idsList,
-            },
-          },
-        },
-      ]);
-
-      const parsedData = z
-        .instanceof(mongoose.Aggregate<PartialItem>)
-        .parse(data);
-
-      request.data = parsedData;
       next();
     } catch (err) {
       next(err);

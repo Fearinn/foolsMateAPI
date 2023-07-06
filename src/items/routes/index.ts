@@ -12,7 +12,6 @@ export const itemsRouter = express.Router();
 itemsRouter
   .post("/items/update", ItemController.updateAll)
   .get("/items/avatarItems", AvatarItemsController.getAll)
-  .get("/items/avatarItems/ids", AvatarItemsController.getByIds)
   .post("/items/avatarItems/update", AvatarItemsController.updateAll)
   .get("/items/roleIcons", RoleIconsController.getAll)
   .post("/items/roleIcons/update", RoleIconsController.updateAll)
