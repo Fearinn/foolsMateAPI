@@ -1,11 +1,11 @@
 import express from "express";
-import { ItemModel } from "../models/Item.js";
-import { ZItem } from "../types/Item.js";
 import { instance } from "../../common/services/index.js";
 import { BaseError } from "../../common/utils/errors/BaseError.js";
+import { ItemModel } from "../models/Item.js";
+import { ZItem } from "../types/Item.js";
 
 export { AvatarItemsController } from "./AvatarItems.js";
-export { BackgroundsController } from "./Background.js";
+export { BackgroundsController } from "./Backgrounds.js";
 export { LoadingScreensController } from "./LoadingScreens.js";
 export { RoleIconsController } from "./RoleIcons.js";
 

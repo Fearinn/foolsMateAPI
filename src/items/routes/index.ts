@@ -17,6 +17,4 @@ itemsRouter
   .post("/items/roleIcons/update", RoleIconsController.updateAll)
   .get("/items/loadingScreens", LoadingScreensController.getAll)
   .get("/items/loadingScreens/random", LoadingScreensController.getRandom)
-  .get("/items/backgrounds", BackgroundsController.getAll)
-  .get("/items/backgrounds/ids", BackgroundsController.getByIds)
-  .post("/items/backgrounds/update", BackgroundsController.updateAll);
+  .get("/items/backgrounds", BackgroundsController.getAll);
