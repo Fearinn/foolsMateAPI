@@ -18,6 +18,7 @@ export async function handleDbPagination(
 
     if (!aggregateValidator.safeParse(data).success) {
       next();
+      return
     }
 
     const parsedData = aggregateValidator.parse(data);

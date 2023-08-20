@@ -11,13 +11,7 @@ export async function handleSimplePagination<T extends z.ZodTypeAny>(
   try {
     const data = req.data;
 
-    const arrayValidator = z.unknown().array();
-
-    if (!arrayValidator.safeParse(data).success) {
-      next();
-    }
-
-    const parsedArray = arrayValidator.parse(data);
+    const parsedArray = z.unknown().array().parse(data);
 
     const { page = 1, limit = 10 } = req.query;
 
