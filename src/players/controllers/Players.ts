@@ -14,7 +14,8 @@ export class PlayersController {
   ) => {
     try {
       const { username = null, username2 = null } = req.query;
-      const isValidUsername = z.string().min(1).safeParse(username).success;
+      const isValidUsername = z.string().min(3).safeParse(username).success;
+      const isValidUsername2 = z.string().min(3).safeParse(username2).success;
 
       if (!isValidUsername) {
         next(
@@ -41,7 +42,7 @@ export class PlayersController {
         return;
       }
 
-      if (username2) {
+      if (isValidUsername2) {
         try {
           const { data: player2 } = await instance.get(
             `/players/search?username=${username2}`
