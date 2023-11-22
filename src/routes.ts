@@ -3,6 +3,7 @@ import { battlePassRouter } from "./battlePass/routes/index.js";
 import { itemsRouter } from "./items/routes/index.js";
 import { playersRouter } from "./players/routes/index.js";
 import { rolesRouter } from "./roles/routes/index.js";
+import { rotationsRouter } from "./rotations/routes/index.js";
 
 const basicRoute = express.Router();
 
@@ -17,6 +18,7 @@ export function routes(app: express.Application) {
     itemsRouter,
     battlePassRouter,
     playersRouter,
-    rolesRouter
+    rolesRouter,
+    rotationsRouter
   );
 }
