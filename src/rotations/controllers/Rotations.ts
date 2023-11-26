@@ -20,7 +20,7 @@ export class RotationsController {
           rotation.roleRotation.roles.forEach((item) => {
             return item.forEach((innerObject) => {
               if (innerObject.roles) {
-                formattedRoles.concat(innerObject.roles);
+                formattedRoles.push(...innerObject.roles);
                 return;
               }
 
