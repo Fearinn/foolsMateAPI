@@ -71,6 +71,11 @@ export const ZReward = z
         type: z.literal("LOOT_BOX"),
       })
       .merge(ZRewardBase),
+    z
+      .object({
+        type: z.literal("BATTLE_PASS_COIN"),
+      })
+      .merge(ZRewardBase),
   ])
   .transform((reward) => {
     if (reward.item) {

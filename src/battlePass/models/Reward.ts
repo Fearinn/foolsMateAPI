@@ -13,9 +13,11 @@ export const ZRewardType = z.enum([
   "LOADING_SCREEN",
   "PROFILE_ICON",
   "LOOT_BOX",
+  "BATTLE_PASS_COIN"
 ]);
 
 export type RewardType = z.infer<typeof ZRewardType>;
+
 const rewardSchema = new mongoose.Schema<Reward>(
   {
     itemId: {
