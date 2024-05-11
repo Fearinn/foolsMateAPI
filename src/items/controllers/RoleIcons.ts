@@ -103,9 +103,11 @@ export class RoleIconsController {
         };
       });
 
-      const result = await RoleIconModel.bulkWrite(dataInsertion, {
+      await RoleIconModel.bulkWrite(dataInsertion, {
         ordered: false,
       });
+
+      const result = "OK";
 
       res.status(200).send(result);
     } catch (err) {

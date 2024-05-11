@@ -130,9 +130,11 @@ export class RolesController {
         };
       });
 
-      const result = await RoleModel.bulkWrite(dataInsertion, {
+      await RoleModel.bulkWrite(dataInsertion, {
         ordered: false,
       });
+
+      const result = "OK";
 
       res.status(200).send(result);
     } catch (err) {

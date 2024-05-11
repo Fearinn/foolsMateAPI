@@ -103,9 +103,11 @@ export class AvatarItemsController {
         };
       });
 
-      const result = await AvatarItemModel.bulkWrite(dataInsertion, {
+      await AvatarItemModel.bulkWrite(dataInsertion, {
         ordered: false,
       });
+
+      const result = "OK";
 
       response.status(200).send(result);
     } catch (err) {
