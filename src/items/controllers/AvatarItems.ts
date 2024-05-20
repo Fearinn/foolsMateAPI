@@ -107,7 +107,7 @@ export class AvatarItemsController {
         ordered: false,
       });
 
-      const result = "OK";
+      const result = "";
 
       response.status(200).send(result);
     } catch (err) {

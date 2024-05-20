@@ -134,7 +134,7 @@ export class RolesController {
         ordered: false,
       });
 
-      const result = "OK";
+      const result = "";
 
       res.status(200).send(result);
     } catch (err) {
