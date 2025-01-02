@@ -2,10 +2,6 @@ import { z } from "zod";
 import { ZId } from "../../common/types/Id.js";
 import { ZInteger } from "../../common/types/Integer.js";
 
-
-
-
-
 export const ZSeason = z.object({
   startTime: z.string(),
   number: ZInteger,

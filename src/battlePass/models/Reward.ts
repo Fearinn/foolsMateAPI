@@ -13,7 +13,8 @@ export const ZRewardType = z.enum([
   "LOADING_SCREEN",
   "PROFILE_ICON",
   "LOOT_BOX",
-  "BATTLE_PASS_COIN"
+  "BATTLE_PASS_COIN",
+  "BODY_PAINT",
 ]);
 
 export type RewardType = z.infer<typeof ZRewardType>;
